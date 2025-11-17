@@ -59,6 +59,25 @@ export default function PracticePage() {
     setIsCompleted(false);
   };
   
+  const goToLastQuestion = () => {
+    stop();
+    setCurrentQuestionIndex(questions.length - 1);
+  };
+  
+  const goToPreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      stop();
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
+  };
+  
+  const goToNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      stop();
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    }
+  };
+  
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
   const percentage = Math.round((score / questions.length) * 100);
   
