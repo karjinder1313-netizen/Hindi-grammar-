@@ -80,6 +80,23 @@ async def get_status_checks():
     
     return status_checks
 
+@api_router.post("/chat", response_model=ChatResponse)
+async def chat(request: ChatRequest):
+    """
+    Chat endpoint for Hindi grammar questions
+    """
+    # Convert conversation history to the format expected by chat service
+    history = [{"role": msg.role, "content": msg.content} for msg in request.conversation_history]
+    
+    # Get response from chat service
+    result = get_chat_response(request.message, history)
+    
+    return ChatResponse(
+        success=result["success"],
+        response=result["response"],
+        error=result.get("error")
+    )
+
 # Include the router in the main app
 app.include_router(api_router)
 
