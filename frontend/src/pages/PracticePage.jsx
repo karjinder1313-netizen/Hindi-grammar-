@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { QuizCard } from '@/components/QuizCard';
@@ -6,45 +7,18 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { Trophy, RotateCcw } from 'lucide-react';
+import { Trophy, RotateCcw, ArrowLeft } from 'lucide-react';
+import practiceExercises from '@/data/questionBank';
 
 export default function PracticePage() {
+  const { exerciseId } = useParams();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
   
-  const questions = [
-    {
-      question: 'निम्नलिखित में से कौन सा शब्द संज्ञा है?',
-      options: ['सुंदर', 'दिल्ली', 'तेज़ी से', 'और'],
-      correctAnswer: 'दिल्ली',
-      explanation: 'दिल्ली एक स्थान का नाम है, इसलिए यह व्यक्तिवाचक संज्ञा है।'
-    },
-    {
-      question: 'कौन सा शब्द सर्वनाम है?',
-      options: ['किताब', 'वह', 'सुंदर', 'दौड़ना'],
-      correctAnswer: 'वह',
-      explanation: 'वह संज्ञा के स्थान पर प्रयोग होता है, इसलिए यह सर्वनाम है।'
-    },
-    {
-      question: 'लड़का खेल रहा है - इस वाक्य में क्रिया कौन सी है?',
-      options: ['लड़का', 'खेल रहा है', 'है', 'खेल'],
-      correctAnswer: 'खेल रहा है',
-      explanation: 'खेल रहा है काम करने का बोध करा रहा है, इसलिए यह क्रिया है।'
-    },
-    {
-      question: 'सुंदर लड़की - इस वाक्य में विशेषण कौन सा है?',
-      options: ['सुंदर', 'लड़की', 'सुंदर लड़की', 'कोई नहीं'],
-      correctAnswer: 'सुंदर',
-      explanation: 'सुंदर लड़की की विशेषता बता रहा है, इसलिए यह विशेषण है।'
-    },
-    {
-      question: 'निम्नलिखित में से कौन सा शब्द भाववाचक संज्ञा है?',
-      options: ['गंगा', 'मित्रता', 'आम', 'टीम'],
-      correctAnswer: 'मित्रता',
-      explanation: 'मित्रता एक भाव है, इसलिए यह भाववाचक संज्ञा है।'
-    }
-  ];
+  // Get exercise or default to first one
+  const exercise = practiceExercises.find(ex => ex.id === parseInt(exerciseId)) || practiceExercises[0];
+  const questions = exercise.questions;
   
   const handleAnswer = (isCorrect) => {
     if (isCorrect) {
