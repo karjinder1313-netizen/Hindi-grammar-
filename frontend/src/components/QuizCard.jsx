@@ -109,7 +109,18 @@ export const QuizCard = ({ question, onAnswer, onCheckAnswer, onRepeatQuestion }
         </div>
       )}
       
-      <div className="flex justify-end">
+      <div className="flex justify-between items-center">
+        {isAnswered && onRepeatQuestion && (
+          <Button 
+            onClick={onRepeatQuestion} 
+            variant="outline"
+            className="hindi-text group"
+          >
+            <RotateCw className="h-4 w-4 mr-2 group-hover:rotate-180 transition-transform duration-300" />
+            प्रश्न दोहराएं
+          </Button>
+        )}
+        {!isAnswered && <div></div>}
         <Button onClick={handleSubmit} disabled={isAnswered} className="hindi-text">
           जाँचें
         </Button>
