@@ -536,34 +536,48 @@ export default function LessonDetailPage() {
           
           {currentLesson.sections.map((section, index) => (
             <TabsContent key={index} value={index.toString()}>
-              <Card className="p-8 space-y-6 animate-scale-in">
-                <h2 className="text-2xl font-bold text-foreground hindi-text">
-                  {section.title}
-                </h2>
+              <div className="space-y-4">
+                {/* Audio Controls */}
+                <AudioControls
+                  isPlaying={isPlaying}
+                  isPaused={isPaused}
+                  onPlay={handlePlay}
+                  onPause={pause}
+                  onResume={resume}
+                  onStop={stop}
+                  rate={rate}
+                  onRateChange={changeRate}
+                />
                 
-                <div className="space-y-4">
-                  {section.content.map((paragraph, pIndex) => (
-                    <p key={pIndex} className="text-base text-foreground leading-relaxed hindi-text">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-                
-                <div className="flex justify-between items-center pt-6 border-t border-border">
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setCurrentSection(Math.max(0, currentSection - 1))}
-                    disabled={currentSection === 0}
-                    className="hindi-text"
-                  >
-                    पिछला
-                  </Button>
+                <Card className="p-8 space-y-6 animate-scale-in">
+                  <h2 className="text-2xl font-bold text-foreground hindi-text">
+                    {section.title}
+                  </h2>
                   
-                  <Button onClick={handleCompleteSection} className="hindi-text">
-                    {currentSection < currentLesson.sections.length - 1 ? 'अगला' : 'पाठ पूर्ण करें'}
-                  </Button>
-                </div>
-              </Card>
+                  <div className="space-y-4">
+                    {section.content.map((paragraph, pIndex) => (
+                      <p key={pIndex} className="text-base text-foreground leading-relaxed hindi-text">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                  
+                  <div className="flex justify-between items-center pt-6 border-t border-border">
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setCurrentSection(Math.max(0, currentSection - 1))}
+                      disabled={currentSection === 0}
+                      className="hindi-text"
+                    >
+                      पिछला
+                    </Button>
+                    
+                    <Button onClick={handleCompleteSection} className="hindi-text">
+                      {currentSection < currentLesson.sections.length - 1 ? 'अगला' : 'पाठ पूर्ण करें'}
+                    </Button>
+                  </div>
+                </Card>
+              </div>
             </TabsContent>
           ))}
         </Tabs>
