@@ -3,10 +3,10 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle, RotateCw } from 'lucide-react';
 import { toast } from 'sonner';
 
-export const QuizCard = ({ question, onAnswer, onCheckAnswer }) => {
+export const QuizCard = ({ question, onAnswer, onCheckAnswer, onRepeatQuestion }) => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
