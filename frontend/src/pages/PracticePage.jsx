@@ -153,7 +153,7 @@ export default function PracticePage() {
             <QuizCard 
               question={questions[currentQuestionIndex]} 
               onAnswer={handleAnswer}
-              onCheckAnswer={handlePlay}
+              onCheckAnswer={handlePlayExplanation}
             />
             
             {/* Navigation Buttons */}
