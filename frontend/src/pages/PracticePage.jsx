@@ -169,6 +169,7 @@ export default function PracticePage() {
               question={questions[currentQuestionIndex]} 
               onAnswer={handleAnswer}
               onCheckAnswer={handlePlayExplanation}
+              onRepeatQuestion={handleRepeatQuestion}
             />
             
             {/* Navigation Buttons */}
