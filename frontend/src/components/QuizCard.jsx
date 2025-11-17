@@ -30,9 +30,8 @@ export const QuizCard = ({ question, onAnswer, onCheckAnswer, onRepeatQuestion }
     
     if (correct) {
       toast.success('सही उत्तर! 🎉');
-    } else {
-      toast.error('गलत उत्तर। फिर से कोशिश करें!');
     }
+    // Removed: toast.error for wrong answers - feedback shown in card instead
     
     // Auto-play explanation audio
     if (onCheckAnswer) {
