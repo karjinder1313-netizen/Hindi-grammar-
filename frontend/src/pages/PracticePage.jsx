@@ -107,6 +107,18 @@ export default function PracticePage() {
               <Progress value={progress} className="h-2" />
             </Card>
             
+            {/* Audio Controls */}
+            <AudioControls
+              isPlaying={isPlaying}
+              isPaused={isPaused}
+              onPlay={handlePlay}
+              onPause={pause}
+              onResume={resume}
+              onStop={stop}
+              rate={rate}
+              onRateChange={changeRate}
+            />
+            
             {/* Question Card */}
             <QuizCard 
               question={questions[currentQuestionIndex]} 
