@@ -16,6 +16,7 @@ export default function LessonDetailPage() {
   const { lessonId } = useParams();
   const [currentSection, setCurrentSection] = useState(0);
   const [completedSections, setCompletedSections] = useState([]);
+  const { speak, pause, resume, stop, isPlaying, isPaused, rate, changeRate } = useSpeech();
   
   // Mock lesson data
   const lesson = {
