@@ -110,15 +110,9 @@ export const QuizCard = ({ question, onAnswer, onCheckAnswer }) => {
       )}
       
       <div className="flex justify-end">
-        {!isAnswered ? (
-          <Button onClick={handleSubmit} className="hindi-text">
-            जाँचें
-          </Button>
-        ) : (
-          <Button onClick={handleNext} className="hindi-text">
-            अगला प्रश्न
-          </Button>
-        )}
+        <Button onClick={handleSubmit} disabled={isAnswered} className="hindi-text">
+          जाँचें
+        </Button>
       </div>
     </Card>
   );
