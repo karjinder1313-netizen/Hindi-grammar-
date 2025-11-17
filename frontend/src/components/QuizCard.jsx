@@ -43,6 +43,19 @@ export const QuizCard = ({ question, onAnswer, onCheckAnswer, onRepeatQuestion, 
     onAnswer(correct);
   };
   
+  const handleTryAgain = () => {
+    setSelectedAnswer('');
+    setIsAnswered(false);
+    setIsCorrect(false);
+    
+    // Auto-play question again
+    if (onTryAgain) {
+      setTimeout(() => {
+        onTryAgain();
+      }, 300);
+    }
+  };
+  
   const handleNext = () => {
     setSelectedAnswer('');
     setIsAnswered(false);
