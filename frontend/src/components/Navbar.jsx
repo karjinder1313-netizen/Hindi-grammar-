@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { BookOpen, Home, Target, TrendingUp } from 'lucide-react';
+import { BookOpen, Home, Target, TrendingUp, MessageCircle } from 'lucide-react';
 
 export const Navbar = () => {
   const location = useLocation();
@@ -55,6 +55,17 @@ export const Navbar = () => {
             </Button>
             
             <Button
+              variant={isActive('/chat') ? 'default' : 'ghost'}
+              size="sm"
+              asChild
+            >
+              <Link to="/chat" className="flex items-center space-x-2">
+                <MessageCircle className="h-4 w-4" />
+                <span>AI सहायक</span>
+              </Link>
+            </Button>
+            
+            <Button
               variant={isActive('/progress') ? 'default' : 'ghost'}
               size="sm"
               asChild
@@ -71,8 +82,8 @@ export const Navbar = () => {
             <Link to="/lessons">
               <BookOpen className="h-6 w-6 text-foreground" />
             </Link>
-            <Link to="/practice">
-              <Target className="h-6 w-6 text-foreground" />
+            <Link to="/chat">
+              <MessageCircle className="h-6 w-6 text-foreground" />
             </Link>
           </div>
         </div>
