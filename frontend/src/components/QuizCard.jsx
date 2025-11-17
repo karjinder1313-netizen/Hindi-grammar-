@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -10,6 +10,13 @@ export const QuizCard = ({ question, onAnswer, onCheckAnswer }) => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  
+  // Reset state when question changes
+  useEffect(() => {
+    setSelectedAnswer('');
+    setIsAnswered(false);
+    setIsCorrect(false);
+  }, [question]);
   
   const handleSubmit = () => {
     if (!selectedAnswer) {
