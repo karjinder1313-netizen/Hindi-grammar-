@@ -446,6 +446,20 @@ export default function LessonDetailPage() {
   const currentLesson = lesson[lessonId] || lesson[1];
   const progress = ((completedSections.length + 1) / currentLesson.sections.length) * 100;
   
+  // Stop audio when section changes
+  useEffect(() => {
+    stop();
+  }, [currentSection, stop]);
+  
+  const handlePlay = () => {
+    const section = currentLesson.sections[currentSection];
+    const textToSpeak = [
+      section.title,
+      ...section.content
+    ];
+    speak(textToSpeak);
+  };
+  
   const handleCompleteSection = () => {
     if (!completedSections.includes(currentSection)) {
       setCompletedSections([...completedSections, currentSection]);
