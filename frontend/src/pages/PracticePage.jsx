@@ -142,7 +142,51 @@ export default function PracticePage() {
             <QuizCard 
               question={questions[currentQuestionIndex]} 
               onAnswer={handleAnswer}
+              onCheckAnswer={handlePlay}
             />
+            
+            {/* Navigation Buttons */}
+            <Card className="p-4">
+              <div className="flex items-center justify-between gap-4">
+                <Button
+                  variant="outline"
+                  onClick={goToPreviousQuestion}
+                  disabled={currentQuestionIndex === 0}
+                  className="hindi-text"
+                >
+                  पिछला प्रश्न
+                </Button>
+                
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => setCurrentQuestionIndex(0)}
+                    disabled={currentQuestionIndex === 0}
+                    className="hindi-text text-xs sm:text-sm"
+                  >
+                    पहला प्रश्न
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    onClick={goToLastQuestion}
+                    disabled={currentQuestionIndex === questions.length - 1}
+                    className="hindi-text text-xs sm:text-sm"
+                  >
+                    अंतिम प्रश्न
+                  </Button>
+                </div>
+                
+                <Button
+                  variant="outline"
+                  onClick={goToNextQuestion}
+                  disabled={currentQuestionIndex === questions.length - 1}
+                  className="hindi-text"
+                >
+                  अगला प्रश्न
+                </Button>
+              </div>
+            </Card>
           </div>
         ) : (
           /* Results */
