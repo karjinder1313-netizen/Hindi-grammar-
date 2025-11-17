@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -9,6 +9,8 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowLeft, BookOpen, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
+import { useSpeech } from '@/hooks/useSpeech';
+import { AudioControls } from '@/components/AudioControls';
 
 export default function LessonDetailPage() {
   const { lessonId } = useParams();
