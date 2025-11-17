@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { BookOpen, Home, Target, TrendingUp, MessageCircle } from 'lucide-react';
+import { BookOpen, Home, Target, TrendingUp, MessageCircle, Search } from 'lucide-react';
 
 export const Navbar = () => {
   const location = useLocation();
