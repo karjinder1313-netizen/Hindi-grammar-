@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from '@/pages/HomePage';
 import LessonsPage from '@/pages/LessonsPage';
 import LessonDetailPage from '@/pages/LessonDetailPage';
+import PracticeExercisesPage from '@/pages/PracticeExercisesPage';
 import PracticePage from '@/pages/PracticePage';
 import ProgressPage from '@/pages/ProgressPage';
 
@@ -14,7 +15,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/lessons" element={<LessonsPage />} />
           <Route path="/lesson/:lessonId" element={<LessonDetailPage />} />
-          <Route path="/practice" element={<PracticePage />} />
+          <Route path="/practice" element={<PracticeExercisesPage />} />
+          <Route path="/practice/:exerciseId" element={<PracticePage />} />
           <Route path="/progress" element={<ProgressPage />} />
         </Routes>
       </BrowserRouter>
