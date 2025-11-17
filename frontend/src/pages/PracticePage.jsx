@@ -130,10 +130,17 @@ export default function PracticePage() {
               </p>
             </div>
             
-            <Button onClick={handleRestart} size="lg" className="hindi-text group">
-              <RotateCcw className="h-4 w-4 mr-2 group-hover:rotate-180 transition-transform duration-300" />
-              फिर से शुरू करें
-            </Button>
+            <div className="flex gap-4">
+              <Button onClick={handleRestart} size="lg" className="hindi-text group flex-1">
+                <RotateCcw className="h-4 w-4 mr-2 group-hover:rotate-180 transition-transform duration-300" />
+                फिर से शुरू करें
+              </Button>
+              <Button variant="outline" size="lg" asChild className="hindi-text flex-1">
+                <Link to="/practice">
+                  सभी अभ्यास
+                </Link>
+              </Button>
+            </div>
           </Card>
         )}
       </div>
