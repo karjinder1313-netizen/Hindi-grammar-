@@ -55,6 +55,17 @@ export const Navbar = () => {
             </Button>
             
             <Button
+              variant={isActive('/search') ? 'default' : 'ghost'}
+              size="sm"
+              asChild
+            >
+              <Link to="/search" className="flex items-center space-x-2">
+                <Search className="h-4 w-4" />
+                <span>खोज</span>
+              </Link>
+            </Button>
+            
+            <Button
               variant={isActive('/chat') ? 'default' : 'ghost'}
               size="sm"
               asChild
@@ -79,8 +90,8 @@ export const Navbar = () => {
           
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-4">
-            <Link to="/lessons">
-              <BookOpen className="h-6 w-6 text-foreground" />
+            <Link to="/search">
+              <Search className="h-6 w-6 text-foreground" />
             </Link>
             <Link to="/chat">
               <MessageCircle className="h-6 w-6 text-foreground" />
