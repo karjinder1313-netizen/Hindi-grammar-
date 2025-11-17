@@ -65,6 +65,17 @@ export default function PracticePage() {
     speak(textToSpeak);
   };
   
+  const handleTryAgain = () => {
+    const currentQuestion = questions[currentQuestionIndex];
+    const textToSpeak = [
+      `प्रश्न ${currentQuestionIndex + 1}`,
+      currentQuestion.question,
+      'विकल्प',
+      ...currentQuestion.options
+    ];
+    speak(textToSpeak);
+  };
+  
   const handleAnswer = (isCorrect) => {
     if (isCorrect) {
       setScore(score + 1);
