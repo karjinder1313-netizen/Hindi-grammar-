@@ -23,6 +23,22 @@ export default function PracticePage() {
   const exercise = practiceExercises.find(ex => ex.id === parseInt(exerciseId)) || practiceExercises[0];
   const questions = exercise.questions;
   
+  // Stop audio when question changes
+  useEffect(() => {
+    stop();
+  }, [currentQuestionIndex, stop]);
+  
+  const handlePlay = () => {
+    const currentQuestion = questions[currentQuestionIndex];
+    const textToSpeak = [
+      `प्रश्न ${currentQuestionIndex + 1}`,
+      currentQuestion.question,
+      'विकल्प',
+      ...currentQuestion.options
+    ];
+    speak(textToSpeak);
+  };
+  
   const handleAnswer = (isCorrect) => {
     if (isCorrect) {
       setScore(score + 1);
