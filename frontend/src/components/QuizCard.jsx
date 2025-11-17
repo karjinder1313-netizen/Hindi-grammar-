@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { CheckCircle, XCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
-export const QuizCard = ({ question, onAnswer }) => {
+export const QuizCard = ({ question, onAnswer, onCheckAnswer }) => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -25,6 +25,13 @@ export const QuizCard = ({ question, onAnswer }) => {
       toast.success('सही उत्तर! 🎉');
     } else {
       toast.error('गलत उत्तर। फिर से कोशिश करें!');
+    }
+    
+    // Auto-play explanation audio
+    if (onCheckAnswer) {
+      setTimeout(() => {
+        onCheckAnswer();
+      }, 500);
     }
     
     onAnswer(correct);
