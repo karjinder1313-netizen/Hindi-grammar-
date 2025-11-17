@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -9,12 +9,15 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Trophy, RotateCcw, ArrowLeft } from 'lucide-react';
 import practiceExercises from '@/data/questionBank';
+import { useSpeech } from '@/hooks/useSpeech';
+import { AudioControls } from '@/components/AudioControls';
 
 export default function PracticePage() {
   const { exerciseId } = useParams();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
+  const { speak, pause, resume, stop, isPlaying, isPaused, rate, changeRate } = useSpeech();
   
   // Get exercise or default to first one
   const exercise = practiceExercises.find(ex => ex.id === parseInt(exerciseId)) || practiceExercises[0];
