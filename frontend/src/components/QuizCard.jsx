@@ -133,7 +133,7 @@ export const QuizCard = ({ question, onAnswer, onCheckAnswer, onRepeatQuestion, 
               प्रश्न दोहराएं
             </Button>
           )}
-          {isAnswered && onTryAgain && (
+          {isAnswered && !isCorrect && onTryAgain && (
             <Button 
               onClick={handleTryAgain} 
               variant="outline"
