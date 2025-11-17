@@ -69,14 +69,7 @@ export default function PracticePage() {
     if (isCorrect) {
       setScore(score + 1);
     }
-    
-    setTimeout(() => {
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-      } else {
-        setIsCompleted(true);
-      }
-    }, 2000);
+    // Don't auto-advance - let user click next button after checking answer
   };
   
   const handleRestart = () => {
