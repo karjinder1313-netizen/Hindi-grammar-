@@ -6,6 +6,7 @@ import LessonDetailPage from '@/pages/LessonDetailPage';
 import PracticeExercisesPage from '@/pages/PracticeExercisesPage';
 import PracticePage from '@/pages/PracticePage';
 import ProgressPage from '@/pages/ProgressPage';
+import ChatPage from '@/pages/ChatPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/practice" element={<PracticeExercisesPage />} />
           <Route path="/practice/:exerciseId" element={<PracticePage />} />
           <Route path="/progress" element={<ProgressPage />} />
+          <Route path="/chat" element={<ChatPage />} />
         </Routes>
       </BrowserRouter>
     </div>
