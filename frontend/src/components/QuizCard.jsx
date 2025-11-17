@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { CheckCircle, XCircle, RotateCw } from 'lucide-react';
 import { toast } from 'sonner';
 
-export const QuizCard = ({ question, onAnswer, onCheckAnswer, onRepeatQuestion }) => {
+export const QuizCard = ({ question, onAnswer, onCheckAnswer, onRepeatQuestion, onTryAgain }) => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
