@@ -48,14 +48,29 @@ export default function PracticePage() {
       <Navbar />
       
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Back Button */}
+        <Button variant="ghost" asChild className="mb-6">
+          <Link to="/practice" className="flex items-center space-x-2">
+            <ArrowLeft className="h-4 w-4" />
+            <span className="hindi-text">सभी अभ्यास</span>
+          </Link>
+        </Button>
+        
         {/* Header */}
         <div className="mb-8 space-y-4">
-          <h1 className="text-4xl font-bold text-foreground hindi-text">
-            अभ्यास प्रश्न
-          </h1>
-          <p className="text-lg text-muted-foreground hindi-text">
-            अपने ज्ञान का परीक्षण करें
-          </p>
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-2xl">
+              {exercise.icon}
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-foreground hindi-text">
+                {exercise.title}
+              </h1>
+              <p className="text-sm text-muted-foreground hindi-text">
+                {exercise.description}
+              </p>
+            </div>
+          </div>
         </div>
         
         {!isCompleted ? (
