@@ -255,3 +255,5 @@ agent_communication:
       message: "Starting comprehensive testing of Hindi Grammar Learning Application. Will test all major pages and functionality including homepage, lessons, practice, progress, navigation, and interactive elements."
     - agent: "testing"
       message: "TESTING COMPLETED: 7/8 tasks passing. CRITICAL ISSUE FOUND: Practice page quiz interface not rendering radio button options properly - this blocks core quiz functionality. All other features working well including navigation, lessons, progress tracking, and responsive design."
+    - agent: "main"
+      message: "Implemented new Flashcard Practice Session feature. Added: 1) 'Start Practice Session' button on main flashcards page, 2) Full-screen practice mode with focused card view, 3) Progress tracking (current card X/total, marked cards count, visual progress bar), 4) Mark as Known button to track learned cards, 5) Previous/Next navigation, 6) Session summary at completion with option to restart or exit, 7) Exit session button to return to main view. Ready for testing."
