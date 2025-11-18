@@ -244,11 +244,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Practice Page Testing"
+    - "Flashcard Practice Session Feature"
   stuck_tasks:
     - "Practice Page Testing"
   test_all: false
-  test_priority: "stuck_first"
+  test_priority: "high_first"
 
 agent_communication:
     - agent: "testing"
