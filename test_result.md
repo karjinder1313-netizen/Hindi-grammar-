@@ -247,7 +247,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Flashcard Practice Session Feature"
+    - "Practice Page Testing"
   stuck_tasks:
     - "Practice Page Testing"
   test_all: false
