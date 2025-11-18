@@ -450,10 +450,26 @@ export default function LessonDetailPage() {
   const currentLesson = lesson[lessonId] || lesson[1];
   const progress = ((completedSections.length + 1) / currentLesson.sections.length) * 100;
   
+  // Get flashcards for current lesson (lessonId maps to flashcardsData index)
+  const lessonFlashcards = flashcardsData[parseInt(lessonId) - 1] || flashcardsData[0];
+  const currentCard = lessonFlashcards?.cards[currentCardIndex];
+  
   // Stop audio when section changes
   useEffect(() => {
     stop();
   }, [currentSection, stop]);
+  
+  const handleNextCard = () => {
+    if (currentCardIndex < lessonFlashcards.cards.length - 1) {
+      setCurrentCardIndex(currentCardIndex + 1);
+    }
+  };
+
+  const handlePrevCard = () => {
+    if (currentCardIndex > 0) {
+      setCurrentCardIndex(currentCardIndex - 1);
+    }
+  };
   
   const handlePlay = () => {
     const section = currentLesson.sections[currentSection];
