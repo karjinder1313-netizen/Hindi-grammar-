@@ -601,6 +601,114 @@ export default function LessonDetailPage() {
             </TabsContent>
           ))}
         </Tabs>
+        
+        {/* Flashcards Practice Section */}
+        {lessonFlashcards && (
+          <div className="mt-12 space-y-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-primary flex items-center justify-center">
+                  <Layers className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground hindi-text">
+                    फ्लैश कार्ड से अभ्यास करें
+                  </h2>
+                  <p className="text-sm text-muted-foreground hindi-text">
+                    इस पाठ की अवधारणाओं को याद रखें
+                  </p>
+                </div>
+              </div>
+              <Button
+                variant={showFlashcards ? 'outline' : 'default'}
+                onClick={() => {
+                  setShowFlashcards(!showFlashcards);
+                  setCurrentCardIndex(0);
+                }}
+                className="hindi-text"
+              >
+                {showFlashcards ? 'बंद करें' : 'शुरू करें'}
+              </Button>
+            </div>
+            
+            {showFlashcards && (
+              <Card className="p-6 space-y-6 bg-gradient-to-br from-accent/5 to-primary/5">
+                <div className="flex items-center justify-between">
+                  <Badge variant="outline" className="hindi-text">
+                    कार्ड {currentCardIndex + 1} / {lessonFlashcards.cards.length}
+                  </Badge>
+                  <span className="text-sm text-muted-foreground hindi-text">
+                    कार्ड पर क्लिक करके पलटें
+                  </span>
+                </div>
+                
+                {/* Flashcard */}
+                <div className="flex justify-center">
+                  <div className="w-full max-w-2xl">
+                    <FlashCard
+                      front={currentCard.front}
+                      back={currentCard.back}
+                      icon={currentCard.icon}
+                    />
+                  </div>
+                </div>
+                
+                {/* Navigation */}
+                <div className="flex items-center justify-between">
+                  <Button
+                    variant="outline"
+                    onClick={handlePrevCard}
+                    disabled={currentCardIndex === 0}
+                    className="hindi-text"
+                  >
+                    पिछला कार्ड
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    onClick={handleNextCard}
+                    disabled={currentCardIndex === lessonFlashcards.cards.length - 1}
+                    className="hindi-text"
+                  >
+                    अगला कार्ड
+                  </Button>
+                </div>
+                
+                {/* All cards preview */}
+                <div className="pt-6 border-t border-border">
+                  <p className="text-sm font-semibold text-foreground mb-4 hindi-text">
+                    सभी {lessonFlashcards.cards.length} कार्ड
+                  </p>
+                  <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                    {lessonFlashcards.cards.map((card, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentCardIndex(index)}
+                        className={`p-3 rounded-lg border text-center transition-all ${
+                          currentCardIndex === index
+                            ? 'bg-primary text-primary-foreground border-primary'
+                            : 'bg-card hover:bg-accent border-border'
+                        }`}
+                      >
+                        <div className="text-2xl mb-1">{card.icon}</div>
+                        <div className="text-xs font-medium">#{index + 1}</div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Link to full practice */}
+                <div className="text-center pt-4">
+                  <Link to="/flashcards">
+                    <Button variant="link" className="hindi-text">
+                      सभी विषयों के फ्लैश कार्ड देखें →
+                    </Button>
+                  </Link>
+                </div>
+              </Card>
+            )}
+          </div>
+        )}
       </div>
       
       <Footer />
