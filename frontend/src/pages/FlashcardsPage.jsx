@@ -5,13 +5,15 @@ import { FlashCard } from '@/components/FlashCard';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Layers, ChevronLeft, ChevronRight, Shuffle } from 'lucide-react';
+import { Layers, ChevronLeft, ChevronRight, Shuffle, Play, X, CheckCircle, Circle } from 'lucide-react';
 import flashcardsData from '@/data/flashcardsData';
 
 export default function FlashcardsPage() {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [shuffled, setShuffled] = useState(false);
+  const [isPracticeMode, setIsPracticeMode] = useState(false);
+  const [markedCards, setMarkedCards] = useState(new Set());
 
   const currentCategory = flashcardsData[selectedCategory];
   const cards = shuffled 
@@ -35,11 +37,32 @@ export default function FlashcardsPage() {
     setSelectedCategory(index);
     setCurrentCardIndex(0);
     setShuffled(false);
+    setMarkedCards(new Set());
   };
 
   const handleShuffle = () => {
     setShuffled(!shuffled);
     setCurrentCardIndex(0);
+  };
+
+  const startPracticeSession = () => {
+    setIsPracticeMode(true);
+    setCurrentCardIndex(0);
+    setMarkedCards(new Set());
+  };
+
+  const exitPracticeSession = () => {
+    setIsPracticeMode(false);
+  };
+
+  const toggleMarkCard = () => {
+    const newMarkedCards = new Set(markedCards);
+    if (newMarkedCards.has(currentCardIndex)) {
+      newMarkedCards.delete(currentCardIndex);
+    } else {
+      newMarkedCards.add(currentCardIndex);
+    }
+    setMarkedCards(newMarkedCards);
   };
 
   return (
