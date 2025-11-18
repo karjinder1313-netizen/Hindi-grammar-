@@ -259,7 +259,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Practice Page Testing"
+    - "Flashcards Integration into Lesson Pages"
   stuck_tasks:
     - "Practice Page Testing"
   test_all: false
