@@ -7,10 +7,12 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, BookOpen, CheckCircle } from 'lucide-react';
+import { ArrowLeft, BookOpen, CheckCircle, Layers } from 'lucide-react';
 import { toast } from 'sonner';
 import { useSpeech } from '@/hooks/useSpeech';
 import { AudioControls } from '@/components/AudioControls';
+import { FlashCard } from '@/components/FlashCard';
+import flashcardsData from '@/data/flashcardsData';
 
 export default function LessonDetailPage() {
   const { lessonId } = useParams();
