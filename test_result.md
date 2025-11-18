@@ -240,6 +240,18 @@ frontend:
           agent: "testing"
           comment: "✅ COMPREHENSIVE TESTING PASSED: All 10 test scenarios completed successfully. 1) Initial page load: Start Practice Session button with Play icon and Hindi text found. 2) Practice session starts correctly with proper header and Exit button. 3) Progress tracking: Card indicator (कार्ड X/Y), marked cards counter (याद किए: X/Y), and visual progress bar all working. 4) Flashcard display and flip animation working perfectly. 5) Mark as Known functionality: Button toggles between 'याद है के रूप में चिह्नित करें' and 'याद है' with CheckCircle icon, counter updates correctly. 6) Navigation: Previous disabled on first card, Next disabled on last card, indicators update properly. 7) Session completion: Shows congratulations message, session summary (कुल कार्ड, याद किए गए, बाकी), Restart and Complete buttons present. 8) Restart functionality resets to first card and clears completion message. 9) Exit session returns to main page. 10) Category integration: Different categories load correctly in practice mode, progress tracking works across categories. All Hindi text displays correctly, all interactions smooth and responsive."
 
+  - task: "Flashcards Integration into Lesson Pages"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/LessonDetailPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Integrated flashcards directly into each lesson detail page. Features: 1) 'Practice with Flashcards' section at bottom of each lesson, 2) Shows only flashcards relevant to that specific grammar topic, 3) Toggle button to show/hide flashcard practice section, 4) Card indicator showing current card number, 5) Previous/Next navigation between cards, 6) Visual grid of all cards with quick navigation, 7) Link to full flashcards page for comprehensive practice, 8) Contextual learning - students can practice while reading the lesson. Mapping: Lesson ID automatically maps to correct flashcard category (e.g., Lesson 1 संज्ञा → Flashcards संज्ञा)."
+
 metadata:
   created_by: "testing_agent"
   version: "1.0"
