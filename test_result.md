@@ -225,6 +225,18 @@ frontend:
           agent: "testing"
           comment: "✅ PASSED: Layout works properly at 1920px width, Hindi text renders correctly (100+ Hindi characters detected), gradient backgrounds visible, responsive design functional."
 
+  - task: "Flashcard Practice Session Feature"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/FlashcardsPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented dedicated practice session mode with: 1) Start Practice Session button, 2) Full-screen focused practice mode, 3) Progress tracking with visual progress bar, 4) Mark as Known functionality for each card, 5) Session summary showing completed cards and marked cards, 6) Navigation controls (Previous/Next), 7) Exit session functionality, 8) Auto-restart option at session end. Need to test all features."
+
 metadata:
   created_by: "testing_agent"
   version: "1.0"
