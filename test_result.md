@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the Hindi Grammar Learning Application with comprehensive test scenarios covering homepage, lessons page, lesson detail page, practice page, progress page, navigation, responsive design, and interactive elements."
+user_problem_statement: "Add a dedicated practice session feature for flashcards with full-screen mode, progress tracking, mark as known functionality, and session summary."
 
 frontend:
   - task: "Homepage Testing"
