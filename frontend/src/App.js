@@ -8,6 +8,7 @@ import PracticePage from '@/pages/PracticePage';
 import ProgressPage from '@/pages/ProgressPage';
 import ChatPage from '@/pages/ChatPage';
 import SearchPage from '@/pages/SearchPage';
+import FlashcardsPage from '@/pages/FlashcardsPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/progress" element={<ProgressPage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/flashcards" element={<FlashcardsPage />} />
         </Routes>
       </BrowserRouter>
     </div>
