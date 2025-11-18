@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Add a dedicated practice session feature for flashcards with full-screen mode, progress tracking, mark as known functionality, and session summary."
+user_problem_statement: "Integrate flashcards into each lesson chapter for contextual learning. Students should be able to practice flashcards directly on the lesson page while studying that specific grammar topic."
 
 frontend:
   - task: "Homepage Testing"
