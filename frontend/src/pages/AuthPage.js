@@ -49,7 +49,7 @@ const AuthPage = ({ setUser }) => {
       setUser(response.data.user);
       toast.success(isLogin ? "Login successful!" : "Registration successful!");
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Authentication failed");
+      toast.error(getErrorMessage(error));
     }
   };
 
