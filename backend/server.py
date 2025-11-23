@@ -95,8 +95,10 @@ class HomeworkSubmission(BaseModel):
     student_id: Optional[str] = None  # set by backend
     student_name: Optional[str] = None  # set by backend
     submission_text: Optional[str] = None
-    file_data: Optional[str] = None  # base64 encoded
+    file_data: Optional[str] = None  # base64 encoded file
     file_name: Optional[str] = None
+    photo_data: Optional[str] = None  # base64 encoded photo of completed homework
+    photo_name: Optional[str] = None  # photo filename
     submitted_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     is_late: bool = False
     grade: Optional[str] = None
