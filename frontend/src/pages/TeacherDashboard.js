@@ -108,6 +108,15 @@ const TeacherDashboard = ({ user, onLogout }) => {
             <Calendar className="w-4 h-4" />
             Attendance
           </Button>
+          <Button
+            variant={isActive('/settings') ? "default" : "outline"}
+            onClick={() => navigate('/teacher/settings')}
+            data-testid="nav-settings"
+            className="flex items-center gap-2"
+          >
+            <Settings className="w-4 h-4" />
+            Settings
+          </Button>
         </div>
 
         <Routes>
