@@ -54,19 +54,19 @@ const AuthPage = ({ setUser }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-50 to-orange-100 p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="bg-blue-600 p-4 rounded-2xl shadow-lg">
+            <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-4 rounded-2xl shadow-lg transform hover:scale-105 transition-transform">
               <GraduationCap className="w-12 h-12 text-white" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{schoolName}</h1>
-          <p className="text-gray-600">Class Management System</p>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">{schoolName}</h1>
+          <p className="text-gray-700 font-medium">Class Management System</p>
         </div>
 
-        <Card className="shadow-xl border-0">
+        <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-2xl text-center">Welcome</CardTitle>
             <CardDescription className="text-center">Sign in or create your account</CardDescription>
