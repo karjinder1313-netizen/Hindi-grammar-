@@ -232,17 +232,30 @@ const HomeworkList = ({ role }) => {
               />
             </div>
             <div className="space-y-2">
-              <Label>Upload File (Optional)</Label>
+              <Label>Upload Document (Optional)</Label>
               <Input
                 type="file"
                 data-testid="submission-file"
                 onChange={handleFileChange}
               />
               {submitData.file_name && (
-                <p className="text-sm text-gray-600">Selected: {submitData.file_name}</p>
+                <p className="text-sm text-gray-600">✓ Document: {submitData.file_name}</p>
               )}
             </div>
-            <Button type="submit" data-testid="submit-homework-confirm" className="w-full">
+            <div className="space-y-2">
+              <Label>Upload Photo of Completed Work (Optional)</Label>
+              <Input
+                type="file"
+                accept="image/*"
+                data-testid="submission-photo"
+                onChange={handlePhotoChange}
+              />
+              <p className="text-xs text-gray-500">Take a photo of your completed homework/assessment</p>
+              {submitData.photo_name && (
+                <p className="text-sm text-green-600">✓ Photo: {submitData.photo_name}</p>
+              )}
+            </div>
+            <Button type="submit" data-testid="submit-homework-confirm" className="w-full bg-gradient-to-r from-purple-600 to-pink-600">
               Submit Homework
             </Button>
           </form>
