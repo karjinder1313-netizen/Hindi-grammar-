@@ -76,7 +76,7 @@ const TeacherDashboard = ({ user, onLogout }) => {
             variant={isActive('/teacher') && location.pathname === '/teacher' ? "default" : "outline"}
             onClick={() => navigate('/teacher')}
             data-testid="nav-home"
-            className="flex items-center gap-2"
+            className={`flex items-center gap-2 ${isActive('/teacher') && location.pathname === '/teacher' ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white' : ''}`}
           >
             <Home className="w-4 h-4" />
             Dashboard
