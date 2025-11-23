@@ -21,7 +21,13 @@ const HomeworkList = ({ role }) => {
   const [submissions, setSubmissions] = useState([]);
   const [showSubmitDialog, setShowSubmitDialog] = useState(false);
   const [showViewDialog, setShowViewDialog] = useState(false);
-  const [submitData, setSubmitData] = useState({ submission_text: "", file_data: "", file_name: "" });
+  const [submitData, setSubmitData] = useState({ 
+    submission_text: "", 
+    file_data: "", 
+    file_name: "",
+    photo_data: "",
+    photo_name: ""
+  });
   const [gradeData, setGradeData] = useState({ submission_id: "", grade: "", feedback: "" });
 
   useEffect(() => {
