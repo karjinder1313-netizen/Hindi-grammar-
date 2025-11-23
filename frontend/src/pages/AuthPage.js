@@ -109,18 +109,7 @@ const AuthPage = ({ setUser }) => {
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       required
                     />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="register-password">Password</Label>
-                    <Input
-                      id="register-password"
-                      data-testid="register-password"
-                      type="password"
-                      placeholder="Create a password"
-                      value={formData.password}
-                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                      required
-                    />
+                    <p className="text-xs text-gray-500">Use this email to login later (no password needed)</p>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="register-role">Role</Label>
