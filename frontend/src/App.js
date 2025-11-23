@@ -7,6 +7,7 @@ import AuthPage from "@/pages/AuthPage";
 import TeacherDashboard from "@/pages/TeacherDashboard";
 import StudentDashboard from "@/pages/StudentDashboard";
 import PrincipalDashboard from "@/pages/PrincipalDashboard";
+import SchoolRegistration from "@/pages/SchoolRegistration";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
