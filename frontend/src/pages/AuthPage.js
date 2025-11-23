@@ -155,7 +155,7 @@ const AuthPage = ({ setUser }) => {
                       />
                     </div>
                   )}
-                  <Button type="submit" data-testid="register-submit-btn" className="w-full bg-blue-600 hover:bg-blue-700">
+                  <Button type="submit" data-testid="register-submit-btn" className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg">
                     Register
                   </Button>
                 </form>
