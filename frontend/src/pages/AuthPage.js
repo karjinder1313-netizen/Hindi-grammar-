@@ -12,12 +12,26 @@ import { GraduationCap } from "lucide-react";
 
 const AuthPage = ({ setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [schoolName, setSchoolName] = useState("Student Portal");
   const [formData, setFormData] = useState({
     email: "",
     full_name: "",
     role: "student",
     class_section: ""
   });
+
+  useEffect(() => {
+    fetchSchoolName();
+  }, []);
+
+  const fetchSchoolName = async () => {
+    try {
+      const response = await axios.get(`${API}/settings/school`);
+      setSchoolName(response.data.school_name);
+    } catch (error) {
+      console.error("Failed to load school name");
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
