@@ -75,7 +75,7 @@ const CreateQuiz = () => {
       toast.success("Quiz created successfully!");
       navigate("/teacher/quiz");
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Failed to create quiz");
+      toast.error(getErrorMessage(error));
     }
   };
 
