@@ -42,114 +42,36 @@ const SchoolRegistration = ({ onRegistrationComplete }) => {
 
         <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
           <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
-            <CardTitle className="text-2xl">School Information</CardTitle>
-            <CardDescription>Please provide your school details and UDISE code</CardDescription>
+            <CardTitle className="text-2xl">Welcome!</CardTitle>
+            <CardDescription>This is a one-time setup. Enter your school name to get started.</CardDescription>
           </CardHeader>
-          <CardContent className="pt-6">
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="space-y-2 md:col-span-2">
-                  <Label htmlFor="school-name" className="text-base font-medium">
-                    School Name <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-                    id="school-name"
-                    data-testid="school-name"
-                    placeholder="Enter your school name"
-                    value={formData.school_name}
-                    onChange={(e) => setFormData({ ...formData, school_name: e.target.value })}
-                    required
-                    className="h-11"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="udise-code" className="text-base font-medium">
-                    UDISE Code <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-                    id="udise-code"
-                    data-testid="udise-code"
-                    placeholder="11-digit UDISE code"
-                    value={formData.udise_code}
-                    onChange={(e) => setFormData({ ...formData, udise_code: e.target.value })}
-                    required
-                    maxLength={11}
-                    pattern="[0-9]{11}"
-                    className="h-11"
-                  />
-                  <p className="text-xs text-gray-500">Enter 11-digit UDISE code from UDISE portal</p>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="principal-name" className="text-base font-medium">
-                    Principal Name <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-                    id="principal-name"
-                    data-testid="principal-name"
-                    placeholder="Principal's full name"
-                    value={formData.principal_name}
-                    onChange={(e) => setFormData({ ...formData, principal_name: e.target.value })}
-                    required
-                    className="h-11"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="principal-email" className="text-base font-medium">
-                    Principal Email <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-                    id="principal-email"
-                    data-testid="principal-email"
-                    type="email"
-                    placeholder="principal@school.com"
-                    value={formData.principal_email}
-                    onChange={(e) => setFormData({ ...formData, principal_email: e.target.value })}
-                    required
-                    className="h-11"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="principal-phone" className="text-base font-medium">
-                    Principal Phone
-                  </Label>
-                  <Input
-                    id="principal-phone"
-                    data-testid="principal-phone"
-                    type="tel"
-                    placeholder="10-digit mobile number"
-                    value={formData.principal_phone}
-                    onChange={(e) => setFormData({ ...formData, principal_phone: e.target.value })}
-                    maxLength={10}
-                    pattern="[0-9]{10}"
-                    className="h-11"
-                  />
-                </div>
-
-                <div className="space-y-2 md:col-span-2">
-                  <Label htmlFor="address" className="text-base font-medium">
-                    School Address
-                  </Label>
-                  <Textarea
-                    id="address"
-                    data-testid="school-address"
-                    placeholder="Enter complete school address"
-                    value={formData.address}
-                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    rows={3}
-                  />
-                </div>
+          <CardContent className="pt-8 pb-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-3">
+                <Label htmlFor="school-name" className="text-lg font-medium">
+                  School Name <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="school-name"
+                  data-testid="school-name"
+                  placeholder="Enter your school name"
+                  value={schoolName}
+                  onChange={(e) => setSchoolName(e.target.value)}
+                  required
+                  className="h-14 text-lg"
+                  autoFocus
+                />
+                <p className="text-sm text-gray-500">
+                  Example: Government Senior Secondary School, ABC Public School, etc.
+                </p>
               </div>
 
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <div className="text-sm text-gray-700">
-                    <p className="font-medium mb-1">What is UDISE Code?</p>
-                    <p>UDISE (Unified District Information System for Education) is a unique 11-digit code assigned to every school in India. You can find it on your school's official documents or UDISE+ portal.</p>
+                    <p className="font-medium mb-1">One-time Setup</p>
+                    <p>You only need to register your school once. After registration, teachers, students, and the principal can create their accounts and login.</p>
                   </div>
                 </div>
               </div>
@@ -157,16 +79,19 @@ const SchoolRegistration = ({ onRegistrationComplete }) => {
               <Button 
                 type="submit" 
                 data-testid="register-school-btn" 
-                className="w-full h-12 text-base bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg"
+                className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg"
               >
-                Register School
+                Register & Continue
               </Button>
             </form>
           </CardContent>
         </Card>
 
-        <div className="text-center mt-6 text-sm text-gray-600">
-          <p>Already registered? The system will redirect you to login automatically.</p>
+        <div className="text-center mt-6 text-sm text-gray-600 bg-white/50 rounded-lg p-4 max-w-md mx-auto">
+          <p className="font-medium mb-2">After Registration:</p>
+          <p>• Teachers can create accounts and manage classes</p>
+          <p>• Students can join and access their assignments</p>
+          <p>• Principal gets full oversight of school activities</p>
         </div>
       </div>
     </div>
