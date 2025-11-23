@@ -42,14 +42,12 @@ api_router = APIRouter(prefix="/api")
 # ========== Auth Models ==========
 class UserRegister(BaseModel):
     email: EmailStr
-    password: str
     full_name: str
     role: Literal["teacher", "student"]
     class_section: Optional[str] = None  # Required for students
 
 class UserLogin(BaseModel):
     email: EmailStr
-    password: str
 
 class User(BaseModel):
     model_config = ConfigDict(extra="ignore")
