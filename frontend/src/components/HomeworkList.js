@@ -104,6 +104,13 @@ const HomeworkList = ({ role }) => {
       await axios.post(`${API}/homework/submit`, payload);
       toast.success("Homework submitted successfully!");
       setShowSubmitDialog(false);
+      setSubmitData({ 
+        submission_text: "", 
+        file_data: "", 
+        file_name: "",
+        photo_data: "",
+        photo_name: ""
+      });
       fetchHomeworks();
     } catch (error) {
       toast.error(getErrorMessage(error));
