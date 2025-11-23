@@ -82,7 +82,9 @@ class Homework(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     title: str
     description: str
-    class_section: str
+    class_section: Optional[str] = None  # For class-wide assignments
+    assignment_type: Literal["class", "group", "individual"] = "class"
+    assigned_to: Optional[List[str]] = []  # List of student IDs for group/individual
     due_date: str  # ISO format
     created_by: Optional[str] = None  # teacher id - set by backend
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
