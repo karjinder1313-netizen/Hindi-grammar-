@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { GraduationCap } from "lucide-react";
+import { getErrorMessage } from "@/utils/errorHandler";
 
 const AuthPage = ({ setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
