@@ -61,7 +61,7 @@ const AuthPage = ({ setUser }) => {
               <GraduationCap className="w-12 h-12 text-white" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Student Portal</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{schoolName}</h1>
           <p className="text-gray-600">Class Management System</p>
         </div>
 
