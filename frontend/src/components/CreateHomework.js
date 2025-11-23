@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
+import { getErrorMessage } from "@/utils/errorHandler";
 
 const CreateHomework = () => {
   const navigate = useNavigate();
