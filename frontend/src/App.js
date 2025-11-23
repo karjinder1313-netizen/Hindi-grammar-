@@ -72,6 +72,16 @@ function App() {
     );
   }
 
+  // If school not registered, show registration page
+  if (!schoolRegistered) {
+    return (
+      <div className="App">
+        <Toaster position="top-right" richColors />
+        <SchoolRegistration onRegistrationComplete={handleRegistrationComplete} />
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <Toaster position="top-right" richColors />
