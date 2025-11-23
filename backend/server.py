@@ -133,11 +133,11 @@ class QuizSubmission(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     quiz_id: str
-    student_id: str
-    student_name: str
+    student_id: Optional[str] = None  # set by backend
+    student_name: Optional[str] = None  # set by backend
     answers: List[QuizAnswer]
     score: Optional[int] = None
-    total_points: int
+    total_points: Optional[int] = None  # set by backend
     auto_graded: bool = False
     teacher_feedback: Optional[str] = None
     submitted_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
