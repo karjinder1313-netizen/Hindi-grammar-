@@ -121,16 +121,34 @@ const CreateQuiz = () => {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="class_section">Class/Section</Label>
-              <Input
-                id="class_section"
-                data-testid="quiz-class-section"
-                placeholder="e.g., 10th A, 12th B"
-                value={formData.class_section}
-                onChange={(e) => setFormData({ ...formData, class_section: e.target.value })}
-                required
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="class_section">Class/Section</Label>
+                <Input
+                  id="class_section"
+                  data-testid="quiz-class-section"
+                  placeholder="e.g., 10th A, 12th B"
+                  value={formData.class_section}
+                  onChange={(e) => setFormData({ ...formData, class_section: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="quiz_type">Type</Label>
+                <Select
+                  value={formData.quiz_type}
+                  onValueChange={(value) => setFormData({ ...formData, quiz_type: value })}
+                >
+                  <SelectTrigger id="quiz_type" data-testid="quiz-type">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="quiz">Quiz</SelectItem>
+                    <SelectItem value="test">Test</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             <div className="space-y-2">
