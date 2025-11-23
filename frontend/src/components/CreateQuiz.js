@@ -18,6 +18,7 @@ const CreateQuiz = () => {
     title: "",
     description: "",
     class_section: "",
+    quiz_type: "quiz",
     due_date: ""
   });
   const [questions, setQuestions] = useState([{
