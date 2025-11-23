@@ -81,7 +81,7 @@ function App() {
             element={
               user ? (
                 <Navigate
-                  to={user.role === "teacher" ? "/teacher" : "/student"}
+                  to={user.role === "teacher" ? "/teacher" : user.role === "principal" ? "/principal" : "/student"}
                   replace
                 />
               ) : (
