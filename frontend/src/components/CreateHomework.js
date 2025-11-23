@@ -26,12 +26,35 @@ const CreateHomework = () => {
   const [students, setStudents] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
 
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      const response = await axios.get(`${API}/homework/students`);
+      setStudents(response.data);
+    } catch (error) {
+      toast.error("Failed to load students");
+    }
+  };
+
+  const handleStudentToggle = (studentId) => {
+    setSelectedStudents(prev => 
+      prev.includes(studentId) 
+        ? prev.filter(id => id !== studentId)
+        : [...prev, studentId]
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     try {
       const payload = {
         ...formData,
+        assigned_to: formData.assignment_type === "class" ? [] : selectedStudents,
+        class_section: formData.assignment_type === "class" ? formData.class_section : null,
         due_date: new Date(formData.due_date).toISOString(),
         attachments: []
       };
