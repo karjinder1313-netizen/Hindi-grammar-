@@ -109,6 +109,16 @@ function App() {
               )
             }
           />
+          <Route
+            path="/principal/*"
+            element={
+              user && user.role === "principal" ? (
+                <PrincipalDashboard user={user} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/auth" replace />
+              )
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
