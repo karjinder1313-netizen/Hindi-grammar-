@@ -6,10 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { LogOut, BookOpen, ClipboardList, Calendar, Home, CheckCircle } from "lucide-react";
+import { LogOut, BookOpen, ClipboardList, Calendar, Home, CheckCircle, Library } from "lucide-react";
 import HomeworkList from "@/components/HomeworkList";
 import QuizList from "@/components/QuizList";
 import MyAttendance from "@/components/MyAttendance";
+import LearningMaterials from "@/components/LearningMaterials";
 import { getErrorMessage } from "@/utils/errorHandler";
 
 const StudentDashboard = ({ user, onLogout }) => {
