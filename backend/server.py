@@ -508,6 +508,59 @@ async def get_my_quiz_submissions(current_user: User = Depends(get_current_user)
     return submissions
 
 
+# ========== Learning Materials Models ==========
+class LearningMaterial(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    title: str
+    description: str
+    material_type: Literal["video", "link", "document", "app", "other"]
+    class_section: str
+    url: Optional[str] = None  # For video links and external URLs
+    file_data: Optional[str] = None  # base64 encoded file
+    file_name: Optional[str] = None
+    uploaded_by: str  # teacher id
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+# ========== Learning Materials Routes ==========
+@api_router.post("/materials/create")
+async def create_material(material: LearningMaterial, current_user: User = Depends(get_current_user)):
+    if current_user.role != "teacher":
+        raise HTTPException(status_code=403, detail="Only teachers can upload materials")
+    
+    material.uploaded_by = current_user.id
+    doc = material.model_dump()
+    doc["created_at"] = doc["created_at"].isoformat()
+    
+    await db.learning_materials.insert_one(doc)
+    return {"message": "Material uploaded successfully", "material": material}
+
+@api_router.get("/materials/list")
+async def list_materials(current_user: User = Depends(get_current_user)):
+    if current_user.role == "teacher":
+        materials = await db.learning_materials.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    else:
+        materials = await db.learning_materials.find(
+            {"class_section": current_user.class_section},
+            {"_id": 0}
+        ).sort("created_at", -1).to_list(1000)
+    
+    return materials
+
+@api_router.delete("/materials/{material_id}")
+async def delete_material(material_id: str, current_user: User = Depends(get_current_user)):
+    if current_user.role != "teacher":
+        raise HTTPException(status_code=403, detail="Only teachers can delete materials")
+    
+    result = await db.learning_materials.delete_one({"id": material_id})
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Material not found")
+    
+    return {"message": "Material deleted successfully"}
+
+
 # ========== School Settings Models ==========
 class SchoolSettings(BaseModel):
     model_config = ConfigDict(extra="ignore")
