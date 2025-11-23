@@ -123,6 +123,9 @@ const QuizList = ({ role }) => {
                 </div>
                 <div className="flex gap-2">
                   <Badge variant="outline">Class {quiz.class_section}</Badge>
+                  <Badge className={quiz.quiz_type === 'test' ? 'bg-red-500' : 'bg-purple-500'}>
+                    {quiz.quiz_type === 'test' ? 'Test' : 'Quiz'}
+                  </Badge>
                   <Badge>{quiz.total_points} points</Badge>
                 </div>
               </div>
