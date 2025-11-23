@@ -34,7 +34,7 @@ const SchoolSettings = () => {
       await axios.put(`${API}/settings/school?school_name=${encodeURIComponent(schoolName)}`);
       toast.success("School name updated successfully!");
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Failed to update school name");
+      toast.error(getErrorMessage(error));
     } finally {
       setLoading(false);
     }
