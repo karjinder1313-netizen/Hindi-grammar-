@@ -6,12 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { LogOut, Users, BookOpen, ClipboardList, Calendar, Home, Plus } from "lucide-react";
+import { LogOut, Users, BookOpen, ClipboardList, Calendar, Home, Plus, Settings } from "lucide-react";
 import CreateHomework from "@/components/CreateHomework";
 import CreateQuiz from "@/components/CreateQuiz";
 import HomeworkList from "@/components/HomeworkList";
 import QuizList from "@/components/QuizList";
 import AttendanceView from "@/components/AttendanceView";
+import SchoolSettings from "@/components/SchoolSettings";
 
 const TeacherDashboard = ({ user, onLogout }) => {
   const [stats, setStats] = useState(null);
