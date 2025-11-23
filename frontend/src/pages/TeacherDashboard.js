@@ -125,37 +125,37 @@ const TeacherDashboard = ({ user, onLogout }) => {
               {/* Stats Cards */}
               {stats && (
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                  <Card data-testid="stat-students">
+                  <Card data-testid="stat-students" className="bg-gradient-to-br from-blue-500 to-cyan-500 text-white border-0 shadow-xl">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <CardTitle className="text-sm font-medium text-gray-600">Total Students</CardTitle>
-                      <Users className="w-5 h-5 text-blue-600" />
+                      <CardTitle className="text-sm font-medium text-white/90">Total Students</CardTitle>
+                      <Users className="w-5 h-5 text-white" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-3xl font-bold">{stats.total_students}</div>
                     </CardContent>
                   </Card>
-                  <Card data-testid="stat-homework">
+                  <Card data-testid="stat-homework" className="bg-gradient-to-br from-green-500 to-emerald-500 text-white border-0 shadow-xl">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <CardTitle className="text-sm font-medium text-gray-600">Homework Assigned</CardTitle>
-                      <BookOpen className="w-5 h-5 text-green-600" />
+                      <CardTitle className="text-sm font-medium text-white/90">Homework Assigned</CardTitle>
+                      <BookOpen className="w-5 h-5 text-white" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-3xl font-bold">{stats.total_homework}</div>
                     </CardContent>
                   </Card>
-                  <Card data-testid="stat-quizzes">
+                  <Card data-testid="stat-quizzes" className="bg-gradient-to-br from-purple-500 to-pink-500 text-white border-0 shadow-xl">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <CardTitle className="text-sm font-medium text-gray-600">Quizzes Created</CardTitle>
-                      <ClipboardList className="w-5 h-5 text-purple-600" />
+                      <CardTitle className="text-sm font-medium text-white/90">Quizzes Created</CardTitle>
+                      <ClipboardList className="w-5 h-5 text-white" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-3xl font-bold">{stats.total_quizzes}</div>
                     </CardContent>
                   </Card>
-                  <Card data-testid="stat-attendance">
+                  <Card data-testid="stat-attendance" className="bg-gradient-to-br from-orange-500 to-red-500 text-white border-0 shadow-xl">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <CardTitle className="text-sm font-medium text-gray-600">Today's Attendance</CardTitle>
-                      <Calendar className="w-5 h-5 text-orange-600" />
+                      <CardTitle className="text-sm font-medium text-white/90">Today's Attendance</CardTitle>
+                      <Calendar className="w-5 h-5 text-white" />
                     </CardHeader>
                     <CardContent>
                       <div className="text-3xl font-bold">{stats.today_attendance}</div>
