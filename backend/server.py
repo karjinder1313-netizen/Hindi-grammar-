@@ -508,6 +508,41 @@ async def get_my_quiz_submissions(current_user: User = Depends(get_current_user)
     return submissions
 
 
+# ========== School Settings Models ==========
+class SchoolSettings(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    school_name: str
+    updated_by: str  # teacher id
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+# ========== School Settings Routes ==========
+@api_router.get("/settings/school")
+async def get_school_settings():
+    settings = await db.school_settings.find_one({}, {"_id": 0}, sort=[("updated_at", -1)])
+    if not settings:
+        return {"school_name": "My School"}
+    return {"school_name": settings["school_name"]}
+
+@api_router.put("/settings/school")
+async def update_school_settings(school_name: str, current_user: User = Depends(get_current_user)):
+    if current_user.role != "teacher":
+        raise HTTPException(status_code=403, detail="Only teachers can update school settings")
+    
+    settings = SchoolSettings(
+        school_name=school_name,
+        updated_by=current_user.id
+    )
+    
+    doc = settings.model_dump()
+    doc["updated_at"] = doc["updated_at"].isoformat()
+    
+    await db.school_settings.insert_one(doc)
+    
+    return {"message": "School name updated successfully", "school_name": school_name}
+
+
 # ========== Dashboard Stats ==========
 @api_router.get("/dashboard/stats")
 async def get_dashboard_stats(current_user: User = Depends(get_current_user)):
