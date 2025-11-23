@@ -135,16 +135,16 @@ const StudentDashboard = ({ user, onLogout }) => {
             <div>
               {/* Attendance Card */}
               {attendanceStatus && (
-                <Card className="mb-6 border-blue-200 bg-blue-50">
+                <Card className="mb-6 border-0 bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-xl">
                   <CardContent className="pt-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="bg-blue-600 p-3 rounded-full">
+                        <div className="bg-white/20 p-3 rounded-full backdrop-blur-sm">
                           <Calendar className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-lg">Daily Attendance</h3>
-                          <p className="text-sm text-gray-600">
+                          <h3 className="font-semibold text-lg text-white">Daily Attendance</h3>
+                          <p className="text-sm text-white/90">
                             {attendanceStatus.marked_today
                               ? "You've marked your attendance for today"
                               : "Don't forget to mark your attendance"}
@@ -155,14 +155,14 @@ const StudentDashboard = ({ user, onLogout }) => {
                         <Button
                           onClick={markAttendance}
                           data-testid="mark-attendance-btn"
-                          className="bg-green-600 hover:bg-green-700"
+                          className="bg-white text-purple-600 hover:bg-gray-100 shadow-lg"
                         >
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Mark Present
                         </Button>
                       )}
                       {attendanceStatus.marked_today && (
-                        <Badge className="bg-green-600">Marked</Badge>
+                        <Badge className="bg-white text-purple-600">Marked ✓</Badge>
                       )}
                     </div>
                   </CardContent>
