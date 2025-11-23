@@ -14,12 +14,14 @@ import MyAttendance from "@/components/MyAttendance";
 const StudentDashboard = ({ user, onLogout }) => {
   const [stats, setStats] = useState(null);
   const [attendanceStatus, setAttendanceStatus] = useState(null);
+  const [schoolName, setSchoolName] = useState("My School");
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     fetchStats();
     checkAttendance();
+    fetchSchoolName();
   }, []);
 
   const fetchStats = async () => {
@@ -28,6 +30,15 @@ const StudentDashboard = ({ user, onLogout }) => {
       setStats(response.data);
     } catch (error) {
       toast.error("Failed to load dashboard stats");
+    }
+  };
+
+  const fetchSchoolName = async () => {
+    try {
+      const response = await axios.get(`${API}/settings/school`);
+      setSchoolName(response.data.school_name);
+    } catch (error) {
+      console.error("Failed to load school name");
     }
   };
 
