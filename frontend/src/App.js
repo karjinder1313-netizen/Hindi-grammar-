@@ -66,6 +66,8 @@ function App() {
               user ? (
                 user.role === "teacher" ? (
                   <Navigate to="/teacher" replace />
+                ) : user.role === "principal" ? (
+                  <Navigate to="/principal" replace />
                 ) : (
                   <Navigate to="/student" replace />
                 )
