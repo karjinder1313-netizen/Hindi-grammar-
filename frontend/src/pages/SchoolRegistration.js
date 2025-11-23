@@ -11,21 +11,14 @@ import { School, CheckCircle } from "lucide-react";
 import { getErrorMessage } from "@/utils/errorHandler";
 
 const SchoolRegistration = ({ onRegistrationComplete }) => {
-  const [formData, setFormData] = useState({
-    school_name: "",
-    udise_code: "",
-    principal_name: "",
-    principal_email: "",
-    principal_phone: "",
-    address: ""
-  });
+  const [schoolName, setSchoolName] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     try {
-      await axios.post(`${API}/school/register`, formData);
-      toast.success("School registered successfully!");
+      await axios.post(`${API}/school/register`, { school_name: schoolName });
+      toast.success("School registered successfully! You can now login.");
       onRegistrationComplete();
     } catch (error) {
       toast.error(getErrorMessage(error));
