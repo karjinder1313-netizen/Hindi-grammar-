@@ -73,7 +73,7 @@ class AttendanceRecord(BaseModel):
     class_section: str
     date: str  # YYYY-MM-DD format
     marked_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    status: Literal["present", "absent"] = "present"
+    attendance_status: Literal["present", "absent"] = "present"
 
 
 # ========== Homework Models ==========
