@@ -94,8 +94,8 @@ class HomeworkSubmission(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     homework_id: str
-    student_id: str
-    student_name: str
+    student_id: Optional[str] = None  # set by backend
+    student_name: Optional[str] = None  # set by backend
     submission_text: Optional[str] = None
     file_data: Optional[str] = None  # base64 encoded
     file_name: Optional[str] = None
