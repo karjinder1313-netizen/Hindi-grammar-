@@ -86,7 +86,7 @@ class Homework(BaseModel):
     description: str
     class_section: str
     due_date: str  # ISO format
-    created_by: str  # teacher id
+    created_by: Optional[str] = None  # teacher id - set by backend
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     attachments: Optional[List[str]] = []  # base64 encoded files
 
