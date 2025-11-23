@@ -296,6 +296,20 @@ const HomeworkList = ({ role }) => {
                       <p className="text-sm mt-1">{sub.file_name}</p>
                     </div>
                   )}
+                  {sub.photo_name && (
+                    <div>
+                      <Label>Homework Photo:</Label>
+                      <div className="mt-2">
+                        <img 
+                          src={`data:image/jpeg;base64,${sub.photo_data}`} 
+                          alt="Homework submission" 
+                          className="max-w-full h-auto rounded-lg border border-gray-300 shadow-sm"
+                          style={{ maxHeight: '400px' }}
+                        />
+                        <p className="text-xs text-gray-500 mt-1">{sub.photo_name}</p>
+                      </div>
+                    </div>
+                  )}
                   {sub.feedback && (
                     <div>
                       <Label>Feedback:</Label>
