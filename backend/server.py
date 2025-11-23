@@ -596,6 +596,168 @@ async def update_school_settings(school_name: str, current_user: User = Depends(
     return {"message": "School name updated successfully", "school_name": school_name}
 
 
+# ========== Principal Analytics Routes ==========
+@api_router.get("/principal/analytics")
+async def get_principal_analytics(current_user: User = Depends(get_current_user)):
+    if current_user.role != "principal":
+        raise HTTPException(status_code=403, detail="Only principals can access analytics")
+    
+    # Overall statistics
+    total_students = await db.users.count_documents({"role": "student"})
+    total_teachers = await db.users.count_documents({"role": "teacher"})
+    total_homework = await db.homework.count_documents({})
+    total_quizzes = await db.quizzes.count_documents({})
+    total_materials = await db.learning_materials.count_documents({})
+    
+    # Attendance statistics
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    today_attendance = await db.attendance.count_documents({"date": today})
+    attendance_percentage = round((today_attendance / total_students * 100) if total_students > 0 else 0, 1)
+    
+    # Homework submissions
+    total_submissions = await db.homework_submissions.count_documents({})
+    pending_homework = total_homework * total_students - total_submissions
+    
+    # Quiz submissions
+    total_quiz_submissions = await db.quiz_submissions.count_documents({})
+    
+    return {
+        "total_students": total_students,
+        "total_teachers": total_teachers,
+        "total_homework": total_homework,
+        "total_quizzes": total_quizzes,
+        "total_materials": total_materials,
+        "today_attendance": today_attendance,
+        "attendance_percentage": attendance_percentage,
+        "total_submissions": total_submissions,
+        "pending_homework": max(0, pending_homework),
+        "total_quiz_submissions": total_quiz_submissions
+    }
+
+@api_router.get("/principal/class-performance")
+async def get_class_performance(current_user: User = Depends(get_current_user)):
+    if current_user.role != "principal":
+        raise HTTPException(status_code=403, detail="Only principals can access this data")
+    
+    # Get all students grouped by class
+    students = await db.users.find({"role": "student"}, {"_id": 0}).to_list(1000)
+    
+    class_stats = {}
+    for student in students:
+        class_sec = student.get("class_section", "Unknown")
+        if class_sec not in class_stats:
+            class_stats[class_sec] = {
+                "class_section": class_sec,
+                "total_students": 0,
+                "attendance_count": 0,
+                "homework_submissions": 0,
+                "quiz_submissions": 0
+            }
+        
+        class_stats[class_sec]["total_students"] += 1
+        
+        # Count attendance
+        attendance_count = await db.attendance.count_documents({"student_id": student["id"]})
+        class_stats[class_sec]["attendance_count"] += attendance_count
+        
+        # Count homework submissions
+        hw_count = await db.homework_submissions.count_documents({"student_id": student["id"]})
+        class_stats[class_sec]["homework_submissions"] += hw_count
+        
+        # Count quiz submissions
+        quiz_count = await db.quiz_submissions.count_documents({"student_id": student["id"]})
+        class_stats[class_sec]["quiz_submissions"] += quiz_count
+    
+    return list(class_stats.values())
+
+@api_router.get("/principal/teacher-activity")
+async def get_teacher_activity(current_user: User = Depends(get_current_user)):
+    if current_user.role != "principal":
+        raise HTTPException(status_code=403, detail="Only principals can access this data")
+    
+    teachers = await db.users.find({"role": "teacher"}, {"_id": 0}).to_list(1000)
+    
+    teacher_stats = []
+    for teacher in teachers:
+        # Count created homework
+        homework_count = await db.homework.count_documents({"created_by": teacher["id"]})
+        
+        # Count created quizzes
+        quiz_count = await db.quizzes.count_documents({"created_by": teacher["id"]})
+        
+        # Count uploaded materials
+        materials_count = await db.learning_materials.count_documents({"uploaded_by": teacher["id"]})
+        
+        teacher_stats.append({
+            "teacher_name": teacher["full_name"],
+            "email": teacher["email"],
+            "homework_created": homework_count,
+            "quizzes_created": quiz_count,
+            "materials_uploaded": materials_count,
+            "total_activity": homework_count + quiz_count + materials_count
+        })
+    
+    # Sort by total activity
+    teacher_stats.sort(key=lambda x: x["total_activity"], reverse=True)
+    
+    return teacher_stats
+
+@api_router.get("/principal/attendance-report")
+async def get_attendance_report(current_user: User = Depends(get_current_user)):
+    if current_user.role != "principal":
+        raise HTTPException(status_code=403, detail="Only principals can access this data")
+    
+    # Get last 7 days attendance
+    from datetime import timedelta
+    
+    report = []
+    for i in range(6, -1, -1):
+        date = (datetime.now(timezone.utc) - timedelta(days=i)).strftime("%Y-%m-%d")
+        count = await db.attendance.count_documents({"date": date})
+        report.append({
+            "date": date,
+            "count": count
+        })
+    
+    return report
+
+@api_router.get("/principal/recent-activities")
+async def get_recent_activities(current_user: User = Depends(get_current_user)):
+    if current_user.role != "principal":
+        raise HTTPException(status_code=403, detail="Only principals can access this data")
+    
+    activities = []
+    
+    # Recent homework
+    homeworks = await db.homework.find({}, {"_id": 0}).sort("created_at", -1).limit(5).to_list(5)
+    for hw in homeworks:
+        teacher = await db.users.find_one({"id": hw.get("created_by")}, {"_id": 0})
+        activities.append({
+            "type": "homework",
+            "title": hw["title"],
+            "class_section": hw["class_section"],
+            "created_by": teacher["full_name"] if teacher else "Unknown",
+            "created_at": hw["created_at"]
+        })
+    
+    # Recent quizzes
+    quizzes = await db.quizzes.find({}, {"_id": 0}).sort("created_at", -1).limit(5).to_list(5)
+    for quiz in quizzes:
+        teacher = await db.users.find_one({"id": quiz.get("created_by")}, {"_id": 0})
+        activities.append({
+            "type": "quiz",
+            "title": quiz["title"],
+            "class_section": quiz["class_section"],
+            "created_by": teacher["full_name"] if teacher else "Unknown",
+            "created_at": quiz["created_at"]
+        })
+    
+    # Sort by created_at
+    activities.sort(key=lambda x: x["created_at"], reverse=True)
+    
+    return activities[:10]
+
+
 # ========== Dashboard Stats ==========
 @api_router.get("/dashboard/stats")
 async def get_dashboard_stats(current_user: User = Depends(get_current_user)):
