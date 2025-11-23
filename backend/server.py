@@ -312,10 +312,22 @@ async def list_homework(current_user: User = Depends(get_current_user)):
     if current_user.role == "teacher":
         homeworks = await db.homework.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
     else:
-        homeworks = await db.homework.find(
-            {"class_section": current_user.class_section},
-            {"_id": 0}
-        ).sort("created_at", -1).to_list(1000)
+        # Students see homework assigned to them through different methods
+        query = {
+            "$or": [
+                # Class-wide assignments for their class
+                {
+                    "assignment_type": "class",
+                    "class_section": current_user.class_section
+                },
+                # Individual or group assignments where they are specifically assigned
+                {
+                    "assignment_type": {"$in": ["individual", "group"]},
+                    "assigned_to": current_user.id
+                }
+            ]
+        }
+        homeworks = await db.homework.find(query, {"_id": 0}).sort("created_at", -1).to_list(1000)
     
     return homeworks
 
