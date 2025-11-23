@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import AuthPage from "@/pages/AuthPage";
 import TeacherDashboard from "@/pages/TeacherDashboard";
 import StudentDashboard from "@/pages/StudentDashboard";
+import PrincipalDashboard from "@/pages/PrincipalDashboard";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
