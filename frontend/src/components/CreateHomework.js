@@ -34,7 +34,7 @@ const CreateHomework = () => {
       toast.success("Homework created successfully!");
       navigate("/teacher/homework");
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Failed to create homework");
+      toast.error(getErrorMessage(error));
     }
   };
 
