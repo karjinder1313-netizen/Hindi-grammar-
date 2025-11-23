@@ -110,6 +110,15 @@ const TeacherDashboard = ({ user, onLogout }) => {
             Attendance
           </Button>
           <Button
+            variant={isActive('/materials') ? "default" : "outline"}
+            onClick={() => navigate('/teacher/materials')}
+            data-testid="nav-materials"
+            className="flex items-center gap-2"
+          >
+            <Library className="w-4 h-4" />
+            Materials
+          </Button>
+          <Button
             variant={isActive('/settings') ? "default" : "outline"}
             onClick={() => navigate('/teacher/settings')}
             data-testid="nav-settings"
