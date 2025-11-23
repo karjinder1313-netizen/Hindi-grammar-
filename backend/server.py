@@ -581,9 +581,37 @@ class SchoolSettings(BaseModel):
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
+# ========== School Registration Routes ==========
+@api_router.post("/school/register")
+async def register_school(school: SchoolRegistration):
+    # Check if school already registered
+    existing = await db.school_registration.find_one({"udise_code": school.udise_code})
+    if existing:
+        raise HTTPException(status_code=400, detail="School with this UDISE code already registered")
+    
+    doc = school.model_dump()
+    doc["registered_at"] = doc["registered_at"].isoformat()
+    
+    await db.school_registration.insert_one(doc)
+    return {"message": "School registered successfully", "school": school}
+
+@api_router.get("/school/check-registration")
+async def check_school_registration():
+    school = await db.school_registration.find_one({}, {"_id": 0})
+    if not school:
+        return {"registered": False}
+    return {"registered": True, "school_name": school["school_name"]}
+
+
 # ========== School Settings Routes ==========
 @api_router.get("/settings/school")
 async def get_school_settings():
+    # First check school registration
+    school = await db.school_registration.find_one({}, {"_id": 0})
+    if school:
+        return {"school_name": school["school_name"]}
+    
+    # Fallback to old settings
     settings = await db.school_settings.find_one({}, {"_id": 0}, sort=[("updated_at", -1)])
     if not settings:
         return {"school_name": "My School"}
