@@ -25,7 +25,7 @@ const AuthPage = ({ setUser }) => {
     try {
       const endpoint = isLogin ? "/auth/login" : "/auth/register";
       const payload = isLogin
-        ? { email: formData.email, password: formData.password }
+        ? { email: formData.email }
         : formData;
 
       const response = await axios.post(`${API}${endpoint}`, payload);
