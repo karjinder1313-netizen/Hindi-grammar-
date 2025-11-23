@@ -59,7 +59,7 @@ const StudentDashboard = ({ user, onLogout }) => {
       checkAttendance();
       fetchStats();
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Failed to mark attendance");
+      toast.error(getErrorMessage(error));
     }
   };
 
