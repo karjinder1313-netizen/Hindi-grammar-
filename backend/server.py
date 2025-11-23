@@ -579,10 +579,10 @@ class SchoolSettings(BaseModel):
 # ========== School Registration Routes ==========
 @api_router.post("/school/register")
 async def register_school(school: SchoolRegistration):
-    # Check if school already registered
-    existing = await db.school_registration.find_one({"udise_code": school.udise_code})
+    # Check if any school already registered (one-time registration)
+    existing = await db.school_registration.find_one({})
     if existing:
-        raise HTTPException(status_code=400, detail="School with this UDISE code already registered")
+        raise HTTPException(status_code=400, detail="School already registered")
     
     doc = school.model_dump()
     doc["registered_at"] = doc["registered_at"].isoformat()
