@@ -93,7 +93,7 @@ const AuthPage = ({ setUser }) => {
                     />
                     <p className="text-xs text-gray-500">No password required - just enter your registered email</p>
                   </div>
-                  <Button type="submit" data-testid="login-submit-btn" className="w-full bg-blue-600 hover:bg-blue-700">
+                  <Button type="submit" data-testid="login-submit-btn" className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg">
                     Login
                   </Button>
                 </form>
