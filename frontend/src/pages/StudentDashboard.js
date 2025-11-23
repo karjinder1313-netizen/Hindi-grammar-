@@ -129,6 +129,15 @@ const StudentDashboard = ({ user, onLogout }) => {
             <Calendar className="w-4 h-4" />
             Attendance
           </Button>
+          <Button
+            variant={isActive('/materials') ? "default" : "outline"}
+            onClick={() => navigate('/student/materials')}
+            data-testid="nav-materials"
+            className="flex items-center gap-2"
+          >
+            <Library className="w-4 h-4" />
+            Materials
+          </Button>
         </div>
 
         <Routes>
