@@ -245,7 +245,7 @@ async def mark_attendance(current_user: User = Depends(get_current_user)):
         student_name=current_user.full_name,
         class_section=current_user.class_section,
         date=today,
-        status="present"
+        attendance_status="present"
     )
     
     doc = attendance.model_dump()
