@@ -43,7 +43,7 @@ api_router = APIRouter(prefix="/api")
 class UserRegister(BaseModel):
     email: EmailStr
     full_name: str
-    role: Literal["teacher", "student"]
+    role: Literal["teacher", "student", "principal"]
     class_section: Optional[str] = None  # Required for students
 
 class UserLogin(BaseModel):
