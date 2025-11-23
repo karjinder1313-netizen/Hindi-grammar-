@@ -402,6 +402,18 @@ async def get_my_submissions(current_user: User = Depends(get_current_user)):
     
     return submissions
 
+@api_router.get("/homework/students")
+async def get_students_for_assignment(current_user: User = Depends(get_current_user)):
+    if current_user.role != "teacher":
+        raise HTTPException(status_code=403, detail="Only teachers can access student list")
+    
+    students = await db.users.find(
+        {"role": "student"},
+        {"_id": 0, "id": 1, "full_name": 1, "class_section": 1}
+    ).to_list(1000)
+    
+    return students
+
 
 # ========== Quiz Routes ==========
 @api_router.post("/quiz/create")
