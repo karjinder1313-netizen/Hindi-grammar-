@@ -50,6 +50,17 @@ const CreateHomework = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // Validation
+    if (formData.assignment_type === "class" && !formData.class_section) {
+      toast.error("Please enter a class/section for class-wide assignments");
+      return;
+    }
+    
+    if ((formData.assignment_type === "group" || formData.assignment_type === "individual") && selectedStudents.length === 0) {
+      toast.error("Please select at least one student");
+      return;
+    }
+    
     try {
       const payload = {
         ...formData,
