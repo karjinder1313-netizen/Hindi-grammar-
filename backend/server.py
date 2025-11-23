@@ -121,7 +121,7 @@ class Quiz(BaseModel):
     class_section: str
     questions: List[QuizQuestion]
     total_points: int
-    created_by: str
+    created_by: Optional[str] = None  # teacher id - set by backend
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     due_date: Optional[str] = None
 
