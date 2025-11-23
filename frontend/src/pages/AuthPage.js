@@ -14,7 +14,6 @@ const AuthPage = ({ setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
     full_name: "",
     role: "student",
     class_section: ""
