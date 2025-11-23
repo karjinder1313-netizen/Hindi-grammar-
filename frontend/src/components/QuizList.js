@@ -82,7 +82,7 @@ const QuizList = ({ role }) => {
       setShowResultDialog(true);
       fetchQuizzes();
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Failed to submit quiz");
+      toast.error(getErrorMessage(error));
     }
   };
 
