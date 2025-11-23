@@ -138,6 +138,7 @@ const AuthPage = ({ setUser }) => {
                       <SelectContent>
                         <SelectItem value="student" data-testid="role-student">Student</SelectItem>
                         <SelectItem value="teacher" data-testid="role-teacher">Teacher</SelectItem>
+                        <SelectItem value="principal" data-testid="role-principal">Principal</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
