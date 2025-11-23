@@ -19,8 +19,12 @@ const CreateHomework = () => {
     title: "",
     description: "",
     class_section: "",
+    assignment_type: "class",
+    assigned_to: [],
     due_date: ""
   });
+  const [students, setStudents] = useState([]);
+  const [selectedStudents, setSelectedStudents] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
