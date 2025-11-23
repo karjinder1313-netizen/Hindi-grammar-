@@ -10,6 +10,7 @@ import { LogOut, BookOpen, ClipboardList, Calendar, Home, CheckCircle } from "lu
 import HomeworkList from "@/components/HomeworkList";
 import QuizList from "@/components/QuizList";
 import MyAttendance from "@/components/MyAttendance";
+import { getErrorMessage } from "@/utils/errorHandler";
 
 const StudentDashboard = ({ user, onLogout }) => {
   const [stats, setStats] = useState(null);
