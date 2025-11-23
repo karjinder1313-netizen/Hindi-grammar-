@@ -186,7 +186,6 @@ async def register(user_data: UserRegister):
         raise HTTPException(status_code=400, detail="Class section is required for students")
     
     # Create user
-    hashed_password = get_password_hash(user_data.password)
     user = User(
         email=user_data.email,
         full_name=user_data.full_name,
@@ -195,7 +194,6 @@ async def register(user_data: UserRegister):
     )
     
     user_doc = user.model_dump()
-    user_doc["hashed_password"] = hashed_password
     user_doc["created_at"] = user_doc["created_at"].isoformat()
     
     await db.users.insert_one(user_doc)
@@ -207,10 +205,10 @@ async def register(user_data: UserRegister):
 
 @api_router.post("/auth/login", response_model=TokenResponse)
 async def login(user_data: UserLogin):
-    # Find user
+    # Find user by email only (passwordless login)
     user_doc = await db.users.find_one({"email": user_data.email})
-    if not user_doc or not verify_password(user_data.password, user_doc["hashed_password"]):
-        raise HTTPException(status_code=401, detail="Invalid email or password")
+    if not user_doc:
+        raise HTTPException(status_code=401, detail="Email not found. Please register first.")
     
     user = User(**user_doc)
     access_token = create_access_token(data={"sub": user.id})
