@@ -28,9 +28,10 @@ const AuthPage = ({ setUser }) => {
   const fetchSchoolName = async () => {
     try {
       const response = await axios.get(`${API}/settings/school`);
-      setSchoolName(response.data.school_name);
+      setSchoolName(response.data.school_name || "School Portal");
     } catch (error) {
       console.error("Failed to load school name");
+      setSchoolName("School Portal");
     }
   };
 
