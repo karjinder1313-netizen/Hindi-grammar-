@@ -24,10 +24,22 @@ axios.interceptors.request.use((config) => {
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [schoolRegistered, setSchoolRegistered] = useState(false);
 
   useEffect(() => {
+    checkSchoolRegistration();
     checkAuth();
   }, []);
+
+  const checkSchoolRegistration = async () => {
+    try {
+      const response = await axios.get(`${API}/school/check-registration`);
+      setSchoolRegistered(response.data.registered);
+    } catch (error) {
+      console.error("Failed to check school registration");
+      setSchoolRegistered(false);
+    }
+  };
 
   const checkAuth = async () => {
     const token = localStorage.getItem("token");
@@ -41,6 +53,10 @@ function App() {
       }
     }
     setLoading(false);
+  };
+
+  const handleRegistrationComplete = () => {
+    setSchoolRegistered(true);
   };
 
   const handleLogout = () => {
