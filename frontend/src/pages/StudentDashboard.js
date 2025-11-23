@@ -242,6 +242,7 @@ const StudentDashboard = ({ user, onLogout }) => {
           <Route path="/homework" element={<HomeworkList role="student" />} />
           <Route path="/quiz" element={<QuizList role="student" />} />
           <Route path="/attendance" element={<MyAttendance />} />
+          <Route path="/materials" element={<LearningMaterials role="student" />} />
         </Routes>
       </div>
     </div>
