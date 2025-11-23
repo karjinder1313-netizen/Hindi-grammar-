@@ -79,7 +79,7 @@ const HomeworkList = ({ role }) => {
       setShowSubmitDialog(false);
       fetchHomeworks();
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Failed to submit homework");
+      toast.error(getErrorMessage(error));
     }
   };
 
