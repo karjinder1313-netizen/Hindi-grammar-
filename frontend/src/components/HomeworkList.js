@@ -73,6 +73,27 @@ const HomeworkList = ({ role }) => {
     }
   };
 
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Check if it's an image
+      if (!file.type.startsWith('image/')) {
+        toast.error("Please upload an image file (JPG, PNG, etc.)");
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSubmitData({
+          ...submitData,
+          photo_data: reader.result.split(',')[1],
+          photo_name: file.name
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
