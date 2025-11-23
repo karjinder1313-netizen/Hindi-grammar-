@@ -338,6 +338,8 @@ async def submit_homework(submission: HomeworkSubmission, current_user: User = D
     
     # Check if late
     due_date = datetime.fromisoformat(homework["due_date"])
+    if due_date.tzinfo is None:
+        due_date = due_date.replace(tzinfo=timezone.utc)
     submission.is_late = datetime.now(timezone.utc) > due_date
     submission.student_id = current_user.id
     submission.student_name = current_user.full_name
