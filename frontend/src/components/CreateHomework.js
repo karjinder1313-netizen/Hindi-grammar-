@@ -109,16 +109,69 @@ const CreateHomework = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="class_section">Class/Section</Label>
-              <Input
-                id="class_section"
-                data-testid="homework-class-section"
-                placeholder="e.g., 10th A, 12th B"
-                value={formData.class_section}
-                onChange={(e) => setFormData({ ...formData, class_section: e.target.value })}
-                required
-              />
+              <Label htmlFor="assignment_type">Assignment Type</Label>
+              <Select 
+                value={formData.assignment_type} 
+                onValueChange={(value) => {
+                  setFormData({ ...formData, assignment_type: value });
+                  setSelectedStudents([]);
+                }}
+              >
+                <SelectTrigger data-testid="assignment-type-select">
+                  <SelectValue placeholder="Select assignment type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="class">Class-wide Assignment</SelectItem>
+                  <SelectItem value="group">Group Assignment</SelectItem>
+                  <SelectItem value="individual">Individual Assignment</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
+
+            {formData.assignment_type === "class" && (
+              <div className="space-y-2">
+                <Label htmlFor="class_section">Class/Section</Label>
+                <Input
+                  id="class_section"
+                  data-testid="homework-class-section"
+                  placeholder="e.g., 10th A, 12th B"
+                  value={formData.class_section}
+                  onChange={(e) => setFormData({ ...formData, class_section: e.target.value })}
+                  required
+                />
+              </div>
+            )}
+
+            {(formData.assignment_type === "group" || formData.assignment_type === "individual") && (
+              <div className="space-y-2">
+                <Label>
+                  Select Students {formData.assignment_type === "individual" ? "(Choose one)" : "(Choose multiple)"}
+                </Label>
+                <div className="max-h-48 overflow-y-auto border rounded-md p-3 space-y-2">
+                  {students.map((student) => (
+                    <div key={student.id} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={student.id}
+                        checked={selectedStudents.includes(student.id)}
+                        onCheckedChange={() => {
+                          if (formData.assignment_type === "individual") {
+                            setSelectedStudents([student.id]);
+                          } else {
+                            handleStudentToggle(student.id);
+                          }
+                        }}
+                      />
+                      <Label htmlFor={student.id} className="text-sm">
+                        {student.full_name} ({student.class_section})
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+                {selectedStudents.length === 0 && (
+                  <p className="text-sm text-red-500">Please select at least one student</p>
+                )}
+              </div>
+            )}
 
             <div className="space-y-2">
               <Label htmlFor="due_date">Due Date</Label>
