@@ -163,8 +163,16 @@ const HomeworkList = ({ role }) => {
                   <CardTitle>{homework.title}</CardTitle>
                   <CardDescription className="mt-2">{homework.description}</CardDescription>
                 </div>
-                <div className="flex gap-2">
-                  <Badge variant="outline">Class {homework.class_section}</Badge>
+                <div className="flex gap-2 flex-wrap">
+                  {homework.assignment_type === "class" && homework.class_section && (
+                    <Badge variant="outline">Class {homework.class_section}</Badge>
+                  )}
+                  {homework.assignment_type === "group" && (
+                    <Badge variant="outline" className="bg-blue-50 text-blue-700">Group Assignment</Badge>
+                  )}
+                  {homework.assignment_type === "individual" && (
+                    <Badge variant="outline" className="bg-green-50 text-green-700">Individual Assignment</Badge>
+                  )}
                   {isOverdue(homework.due_date) && <Badge variant="destructive">Overdue</Badge>}
                   {isDueSoon(homework.due_date) && !isOverdue(homework.due_date) && (
                     <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">Due Soon</Badge>
