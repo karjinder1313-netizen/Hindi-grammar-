@@ -590,11 +590,37 @@ async def delete_material(material_id: str, current_user: User = Depends(get_cur
     return {"message": "Material deleted successfully"}
 
 
+# ========== Notice Board Models ==========
+class Notice(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    title: str
+    content: str
+    priority: Literal["low", "medium", "high", "urgent"] = "medium"
+    created_by: str  # teacher/principal id
+    created_by_name: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    expires_at: Optional[str] = None  # ISO format
+
+
+# ========== Gallery Models ==========
+class GalleryImage(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    title: str
+    description: Optional[str] = None
+    image_data: str  # base64 encoded
+    uploaded_by: str  # teacher/principal id
+    uploaded_by_name: str
+    uploaded_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
 # ========== School Settings Models ==========
 class SchoolRegistration(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     school_name: str
+    udise_code: str
     registered_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class SchoolSettings(BaseModel):
