@@ -140,6 +140,24 @@ const StudentDashboard = ({ user, onLogout }) => {
             <Library className="w-4 h-4" />
             Materials
           </Button>
+          <Button
+            variant={isActive('/noticeboard') ? "default" : "outline"}
+            onClick={() => navigate('/student/noticeboard')}
+            data-testid="nav-noticeboard"
+            className="flex items-center gap-2"
+          >
+            <Bell className="w-4 h-4" />
+            Notices
+          </Button>
+          <Button
+            variant={isActive('/gallery') ? "default" : "outline"}
+            onClick={() => navigate('/student/gallery')}
+            data-testid="nav-gallery"
+            className="flex items-center gap-2"
+          >
+            <Image className="w-4 h-4" />
+            Gallery
+          </Button>
         </div>
 
         <Routes>
