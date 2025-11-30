@@ -631,6 +631,70 @@ class SchoolSettings(BaseModel):
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
+# ========== Notice Board Routes ==========
+@api_router.post("/notices/create")
+async def create_notice(notice: Notice, current_user: User = Depends(get_current_user)):
+    if current_user.role not in ["teacher", "principal"]:
+        raise HTTPException(status_code=403, detail="Only teachers and principals can create notices")
+    
+    notice.created_by = current_user.id
+    notice.created_by_name = current_user.full_name
+    doc = notice.model_dump()
+    doc["created_at"] = doc["created_at"].isoformat()
+    
+    await db.notices.insert_one(doc)
+    return {"message": "Notice posted successfully", "notice": notice}
+
+@api_router.get("/notices/list")
+async def list_notices():
+    # All users can view notices
+    notices = await db.notices.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    return notices
+
+@api_router.delete("/notices/{notice_id}")
+async def delete_notice(notice_id: str, current_user: User = Depends(get_current_user)):
+    if current_user.role not in ["teacher", "principal"]:
+        raise HTTPException(status_code=403, detail="Only teachers and principals can delete notices")
+    
+    result = await db.notices.delete_one({"id": notice_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Notice not found")
+    
+    return {"message": "Notice deleted successfully"}
+
+
+# ========== Gallery Routes ==========
+@api_router.post("/gallery/upload")
+async def upload_image(image: GalleryImage, current_user: User = Depends(get_current_user)):
+    if current_user.role not in ["teacher", "principal"]:
+        raise HTTPException(status_code=403, detail="Only teachers and principals can upload images")
+    
+    image.uploaded_by = current_user.id
+    image.uploaded_by_name = current_user.full_name
+    doc = image.model_dump()
+    doc["uploaded_at"] = doc["uploaded_at"].isoformat()
+    
+    await db.gallery.insert_one(doc)
+    return {"message": "Image uploaded successfully", "image": image}
+
+@api_router.get("/gallery/list")
+async def list_gallery_images():
+    # All users can view gallery
+    images = await db.gallery.find({}, {"_id": 0}).sort("uploaded_at", -1).to_list(1000)
+    return images
+
+@api_router.delete("/gallery/{image_id}")
+async def delete_gallery_image(image_id: str, current_user: User = Depends(get_current_user)):
+    if current_user.role not in ["teacher", "principal"]:
+        raise HTTPException(status_code=403, detail="Only teachers and principals can delete images")
+    
+    result = await db.gallery.delete_one({"id": image_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Image not found")
+    
+    return {"message": "Image deleted successfully"}
+
+
 # ========== School Registration Routes ==========
 @api_router.post("/school/register")
 async def register_school(school: SchoolRegistration):
@@ -638,6 +702,10 @@ async def register_school(school: SchoolRegistration):
     existing = await db.school_registration.find_one({})
     if existing:
         raise HTTPException(status_code=400, detail="School already registered")
+    
+    # Validate UDISE code format (11 digits)
+    if not school.udise_code.isdigit() or len(school.udise_code) != 11:
+        raise HTTPException(status_code=400, detail="UDISE code must be exactly 11 digits")
     
     doc = school.model_dump()
     doc["registered_at"] = doc["registered_at"].isoformat()
@@ -651,6 +719,17 @@ async def check_school_registration():
     if not school:
         return {"registered": False}
     return {"registered": True, "school_name": school["school_name"]}
+
+@api_router.post("/school/verify-login")
+async def verify_school_login(school_name: str, udise_code: str):
+    school = await db.school_registration.find_one({
+        "school_name": school_name,
+        "udise_code": udise_code
+    })
+    if not school:
+        raise HTTPException(status_code=401, detail="Invalid school name or UDISE code")
+    
+    return {"message": "School verified successfully", "school_name": school["school_name"]}
 
 
 # ========== School Settings Routes ==========
