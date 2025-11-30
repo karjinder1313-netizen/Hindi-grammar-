@@ -26,10 +26,19 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [schoolRegistered, setSchoolRegistered] = useState(false);
+  const [schoolVerified, setSchoolVerified] = useState(false);
+  const [schoolName, setSchoolName] = useState("");
 
   useEffect(() => {
     checkSchoolRegistration();
     checkAuth();
+    // Check if school was verified in this session
+    const verified = sessionStorage.getItem("schoolVerified");
+    const name = sessionStorage.getItem("schoolName");
+    if (verified === "true" && name) {
+      setSchoolVerified(true);
+      setSchoolName(name);
+    }
   }, []);
 
   const checkSchoolRegistration = async () => {
