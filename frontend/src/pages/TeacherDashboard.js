@@ -121,6 +121,24 @@ const TeacherDashboard = ({ user, onLogout }) => {
             Materials
           </Button>
           <Button
+            variant={isActive('/noticeboard') ? "default" : "outline"}
+            onClick={() => navigate('/teacher/noticeboard')}
+            data-testid="nav-noticeboard"
+            className="flex items-center gap-2"
+          >
+            <Bell className="w-4 h-4" />
+            Notices
+          </Button>
+          <Button
+            variant={isActive('/gallery') ? "default" : "outline"}
+            onClick={() => navigate('/teacher/gallery')}
+            data-testid="nav-gallery"
+            className="flex items-center gap-2"
+          >
+            <Image className="w-4 h-4" />
+            Gallery
+          </Button>
+          <Button
             variant={isActive('/settings') ? "default" : "outline"}
             onClick={() => navigate('/teacher/settings')}
             data-testid="nav-settings"
