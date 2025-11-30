@@ -72,8 +72,12 @@ function App() {
   const handleSchoolVerified = (name) => {
     setSchoolVerified(true);
     setSchoolName(name);
+    // Use both session and local storage for persistence
     sessionStorage.setItem("schoolVerified", "true");
     sessionStorage.setItem("schoolName", name);
+    localStorage.setItem("schoolVerified", "true");
+    localStorage.setItem("schoolName", name);
+    localStorage.setItem("schoolVerifiedTime", Date.now().toString());
   };
 
   const handleLogout = () => {
