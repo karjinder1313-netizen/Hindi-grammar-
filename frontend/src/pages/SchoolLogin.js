@@ -21,9 +21,13 @@ const SchoolLogin = ({ onSchoolVerified }) => {
     setLoading(true);
     
     try {
-      await axios.post(`${API}/school/verify-login?school_name=${encodeURIComponent(formData.school_name)}&udise_code=${formData.udise_code}`);
+      // Trim whitespace from inputs
+      const trimmedName = formData.school_name.trim();
+      const trimmedUdise = formData.udise_code.trim();
+      
+      await axios.post(`${API}/school/verify-login?school_name=${encodeURIComponent(trimmedName)}&udise_code=${trimmedUdise}`);
       toast.success("School verified! Please login with your credentials.");
-      onSchoolVerified(formData.school_name);
+      onSchoolVerified(trimmedName);
     } catch (error) {
       toast.error(getErrorMessage(error));
     } finally {
