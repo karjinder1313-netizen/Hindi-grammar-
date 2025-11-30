@@ -69,6 +69,13 @@ function App() {
     setSchoolRegistered(true);
   };
 
+  const handleSchoolVerified = (name) => {
+    setSchoolVerified(true);
+    setSchoolName(name);
+    sessionStorage.setItem("schoolVerified", "true");
+    sessionStorage.setItem("schoolName", name);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);
