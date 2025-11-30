@@ -99,6 +99,16 @@ function App() {
     );
   }
 
+  // If school registered but not verified in this session, show school login
+  if (!schoolVerified) {
+    return (
+      <div className="App">
+        <Toaster position="top-right" richColors />
+        <SchoolLogin onSchoolVerified={handleSchoolVerified} />
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <Toaster position="top-right" richColors />
