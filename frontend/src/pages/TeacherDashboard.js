@@ -236,6 +236,8 @@ const TeacherDashboard = ({ user, onLogout }) => {
           <Route path="/quiz/create" element={<CreateQuiz />} />
           <Route path="/attendance" element={<AttendanceView />} />
           <Route path="/materials" element={<LearningMaterials role="teacher" />} />
+          <Route path="/noticeboard" element={<NoticeBoard role="teacher" />} />
+          <Route path="/gallery" element={<Gallery role="teacher" />} />
           <Route path="/settings" element={<SchoolSettings />} />
         </Routes>
       </div>
