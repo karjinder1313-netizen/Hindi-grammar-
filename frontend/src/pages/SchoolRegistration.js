@@ -58,14 +58,34 @@ const SchoolRegistration = ({ onRegistrationComplete }) => {
                   id="school-name"
                   data-testid="school-name"
                   placeholder="Enter your school name"
-                  value={schoolName}
-                  onChange={(e) => setSchoolName(e.target.value)}
+                  value={formData.school_name}
+                  onChange={(e) => setFormData({ ...formData, school_name: e.target.value })}
                   required
                   className="h-14 text-lg"
                   autoFocus
                 />
                 <p className="text-sm text-gray-500">
                   Example: Government Senior Secondary School, ABC Public School, etc.
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <Label htmlFor="udise-code" className="text-lg font-medium">
+                  UDISE Code <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="udise-code"
+                  data-testid="udise-code"
+                  placeholder="Enter 11-digit UDISE code"
+                  value={formData.udise_code}
+                  onChange={(e) => setFormData({ ...formData, udise_code: e.target.value })}
+                  required
+                  maxLength={11}
+                  pattern="[0-9]{11}"
+                  className="h-14 text-lg font-mono"
+                />
+                <p className="text-sm text-gray-500">
+                  11-digit unique identification code from UDISE+ portal
                 </p>
               </div>
 
