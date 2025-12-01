@@ -9,6 +9,8 @@ import ProgressPage from '@/pages/ProgressPage';
 import ChatPage from '@/pages/ChatPage';
 import SearchPage from '@/pages/SearchPage';
 import FlashcardsPage from '@/pages/FlashcardsPage';
+import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage';
+import TermsOfServicePage from '@/pages/TermsOfServicePage';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/flashcards" element={<FlashcardsPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms" element={<TermsOfServicePage />} />
         </Routes>
       </BrowserRouter>
     </div>
