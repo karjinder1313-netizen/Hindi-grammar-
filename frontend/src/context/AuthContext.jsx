@@ -11,14 +11,25 @@ export const AuthProvider = ({ children }) => {
 
   // Load user from localStorage on mount
   useEffect(() => {
-    const storedToken = localStorage.getItem('auth_token');
-    const storedUser = localStorage.getItem('user');
-    
-    if (storedToken && storedUser) {
-      setToken(storedToken);
-      setUser(JSON.parse(storedUser));
-    }
-    setLoading(false);
+    const loadUserFromStorage = () => {
+      try {
+        const storedToken = localStorage.getItem('auth_token');
+        const storedUser = localStorage.getItem('user');
+        
+        if (storedToken && storedUser) {
+          setToken(storedToken);
+          setUser(JSON.parse(storedUser));
+        }
+      } catch (error) {
+        console.error('Error loading user from storage:', error);
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('user');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUserFromStorage();
   }, []);
 
   const login = async (mobile, password) => {
@@ -42,6 +53,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('auth_token', data.access_token);
       localStorage.setItem('user', JSON.stringify(data.user));
       
+      // Update state
       setToken(data.access_token);
       setUser(data.user);
       
@@ -72,6 +84,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('auth_token', data.access_token);
       localStorage.setItem('user', JSON.stringify(data.user));
       
+      // Update state
       setToken(data.access_token);
       setUser(data.user);
       
@@ -95,7 +108,7 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
-    isAuthenticated: !!user,
+    isAuthenticated: !!user && !!token,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
