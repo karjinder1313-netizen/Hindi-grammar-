@@ -1,7 +1,19 @@
 import os
 from openai import OpenAI
+from dotenv import load_dotenv
+from pathlib import Path
 
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+# Load environment variables
+ROOT_DIR = Path(__file__).parent
+load_dotenv(ROOT_DIR / '.env')
+
+# Initialize OpenAI client with proper error handling
+api_key = os.getenv('OPENAI_API_KEY')
+if not api_key:
+    print("Warning: OPENAI_API_KEY not found in environment variables")
+    client = None
+else:
+    client = OpenAI(api_key=api_key)
 
 # Knowledge base containing all Hindi grammar chapters
 HINDI_GRAMMAR_KNOWLEDGE = """
