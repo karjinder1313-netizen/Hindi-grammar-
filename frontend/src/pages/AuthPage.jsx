@@ -41,16 +41,23 @@ export default function AuthPage() {
     e.preventDefault();
     setLoading(true);
 
-    const result = await login(loginData.mobile, loginData.password);
-    
-    if (result.success) {
-      toast.success('लॉगिन सफल!');
-      navigate('/');
-    } else {
-      toast.error(result.error || 'लॉगिन विफल रहा');
+    try {
+      const result = await login(loginData.mobile, loginData.password);
+      
+      if (result.success) {
+        toast.success('लॉगिन सफल!');
+        // Small delay to ensure state is updated before navigation
+        setTimeout(() => {
+          navigate('/', { replace: true });
+        }, 100);
+      } else {
+        toast.error(result.error || 'लॉगिन विफल रहा');
+      }
+    } catch (error) {
+      toast.error('लॉगिन में त्रुटि हुई');
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
   const handleRegister = async (e) => {
@@ -69,22 +76,29 @@ export default function AuthPage() {
 
     setLoading(true);
 
-    const result = await register({
-      name: registerData.name,
-      mobile: registerData.mobile,
-      school: registerData.school,
-      class_name: registerData.class_name,
-      password: registerData.password
-    });
-    
-    if (result.success) {
-      toast.success('पंजीकरण सफल!');
-      navigate('/');
-    } else {
-      toast.error(result.error || 'पंजीकरण विफल रहा');
+    try {
+      const result = await register({
+        name: registerData.name,
+        mobile: registerData.mobile,
+        school: registerData.school,
+        class_name: registerData.class_name,
+        password: registerData.password
+      });
+      
+      if (result.success) {
+        toast.success('पंजीकरण सफल!');
+        // Small delay to ensure state is updated before navigation
+        setTimeout(() => {
+          navigate('/', { replace: true });
+        }, 100);
+      } else {
+        toast.error(result.error || 'पंजीकरण विफल रहा');
+      }
+    } catch (error) {
+      toast.error('पंजीकरण में त्रुटि हुई');
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
   return (
