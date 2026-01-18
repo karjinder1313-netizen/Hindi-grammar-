@@ -96,8 +96,8 @@ def decode_access_token(token: str):
 # Auth Service Functions
 async def register_user(user_data: UserRegister) -> TokenResponse:
     """Register a new user"""
-    # Check if user already exists
-    existing_user = await db.users.find_one({"mobile": user_data.mobile})
+    # Check if user already exists (optimized query - only check if exists)
+    existing_user = await db.users.find_one({"mobile": user_data.mobile}, {"_id": 1})
     if existing_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
