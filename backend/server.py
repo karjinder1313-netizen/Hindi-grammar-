@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException, Header
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -10,6 +10,10 @@ from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 from chat_service import get_chat_response
+from auth_service import (
+    register_user, login_user, get_current_user,
+    UserRegister, UserLogin, TokenResponse, User
+)
 
 
 ROOT_DIR = Path(__file__).parent
