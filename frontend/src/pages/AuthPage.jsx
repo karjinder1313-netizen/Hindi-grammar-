@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate, Link, Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Card } from '@/components/ui/card';
@@ -13,13 +13,15 @@ import { toast } from 'sonner';
 
 export default function AuthPage() {
   const navigate = useNavigate();
-  const { login, register, isAuthenticated } = useAuth();
+  const { login, register, isAuthenticated, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(false);
 
-  // Redirect if already authenticated
-  if (isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
+  // Redirect if already authenticated - using useEffect for safer navigation
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      navigate('/', { replace: true });
+    }
+  }, [isAuthenticated, authLoading, navigate]);
 
   // Login State
   const [loginData, setLoginData] = useState({
