@@ -1,11 +1,21 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { BookOpen, Home, Target, TrendingUp, MessageCircle, Search } from 'lucide-react';
+import { BookOpen, Home, Target, TrendingUp, MessageCircle, Search, LogIn, LogOut, User } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import { toast } from 'sonner';
 
 export const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout, isAuthenticated } = useAuth();
   
   const isActive = (path) => location.pathname === path;
+  
+  const handleLogout = () => {
+    logout();
+    toast.success('लॉगआउट सफल!');
+    navigate('/');
+  };
   
   return (
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
@@ -86,6 +96,29 @@ export const Navbar = () => {
                 <span>प्रगति</span>
               </Link>
             </Button>
+
+            {/* Auth Button */}
+            <div className="ml-4 pl-4 border-l border-border">
+              {isAuthenticated ? (
+                <div className="flex items-center space-x-2">
+                  <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                    <User className="h-4 w-4" />
+                    <span className="hindi-text">{user?.name}</span>
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={handleLogout} className="flex items-center space-x-2">
+                    <LogOut className="h-4 w-4" />
+                    <span className="hindi-text">लॉगआउट</span>
+                  </Button>
+                </div>
+              ) : (
+                <Button variant="default" size="sm" asChild>
+                  <Link to="/auth" className="flex items-center space-x-2">
+                    <LogIn className="h-4 w-4" />
+                    <span className="hindi-text">लॉगिन</span>
+                  </Link>
+                </Button>
+              )}
+            </div>
           </div>
           
           {/* Mobile Menu Button */}
@@ -96,6 +129,15 @@ export const Navbar = () => {
             <Link to="/chat">
               <MessageCircle className="h-6 w-6 text-foreground" />
             </Link>
+            {isAuthenticated ? (
+              <button onClick={handleLogout}>
+                <LogOut className="h-6 w-6 text-foreground" />
+              </button>
+            ) : (
+              <Link to="/auth">
+                <LogIn className="h-6 w-6 text-foreground" />
+              </Link>
+            )}
           </div>
         </div>
       </div>
