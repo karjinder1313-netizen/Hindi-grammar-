@@ -101,6 +101,32 @@ async def chat(request: ChatRequest):
         error=result.get("error")
     )
 
+# Authentication Endpoints
+@api_router.post("/auth/register", response_model=TokenResponse)
+async def register(user_data: UserRegister):
+    """
+    Register a new user
+    """
+    return await register_user(user_data)
+
+@api_router.post("/auth/login", response_model=TokenResponse)
+async def login(login_data: UserLogin):
+    """
+    Login user
+    """
+    return await login_user(login_data)
+
+@api_router.get("/auth/me", response_model=User)
+async def get_me(authorization: Optional[str] = Header(None)):
+    """
+    Get current user profile
+    """
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Authorization header missing or invalid")
+    
+    token = authorization.split(" ")[1]
+    return await get_current_user(token)
+
 # Include the router in the main app
 app.include_router(api_router)
 
