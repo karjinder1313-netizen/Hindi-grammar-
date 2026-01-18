@@ -140,8 +140,11 @@ async def register_user(user_data: UserRegister) -> TokenResponse:
 
 async def login_user(login_data: UserLogin) -> TokenResponse:
     """Login user"""
-    # Find user by mobile
-    user_doc = await db.users.find_one({"mobile": login_data.mobile})
+    # Find user by mobile (optimized query - only fetch needed fields)
+    user_doc = await db.users.find_one(
+        {"mobile": login_data.mobile},
+        {"id": 1, "name": 1, "mobile": 1, "school": 1, "class_name": 1, "password": 1, "created_at": 1}
+    )
     
     if not user_doc:
         raise HTTPException(
