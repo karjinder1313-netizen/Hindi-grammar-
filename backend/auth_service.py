@@ -189,7 +189,11 @@ async def get_current_user(token: str) -> User:
             detail="Invalid token"
         )
     
-    user_doc = await db.users.find_one({"id": user_id})
+    # Optimized query - only fetch needed fields
+    user_doc = await db.users.find_one(
+        {"id": user_id},
+        {"id": 1, "name": 1, "mobile": 1, "school": 1, "class_name": 1, "created_at": 1}
+    )
     
     if not user_doc:
         raise HTTPException(
