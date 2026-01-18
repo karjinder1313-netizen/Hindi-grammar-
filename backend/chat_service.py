@@ -104,6 +104,13 @@ def get_chat_response(user_message: str, conversation_history: list = None) -> d
     Get AI response for Hindi grammar questions
     """
     try:
+        if client is None:
+            return {
+                "success": False,
+                "error": "OpenAI client not initialized - API key missing",
+                "response": "क्षमा करें, चैट सेवा उपलब्ध नहीं है। कृपया बाद में पुनः प्रयास करें।"
+            }
+        
         if conversation_history is None:
             conversation_history = []
         
