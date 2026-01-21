@@ -1,5 +1,12 @@
 {
   "appId": "com.hindigrammar.app",
   "appName": "Hindi Grammar",
-  "webDir": "build"
+  "webDir": "build",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true
+  }
 }
