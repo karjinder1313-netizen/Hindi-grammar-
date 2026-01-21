@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Hindi Grammar</string>
+    <string name="title_activity_main">Hindi Grammar</string>
+    <string name="package_name">com.hindigrammar.app</string>
+    <string name="custom_url_scheme">com.hindigrammar.app</string>
+</resources>
